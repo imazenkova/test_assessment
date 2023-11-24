@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './SearchBar.module.scss';
 
 interface SearchBarProps {
-    onSearchInput: (searchInput:string) => void;
+    onSearchInput: (searchInput: string) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearchInput }) => {
@@ -13,7 +13,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchInput }) => {
         const delay = setTimeout(() => {
             onSearchInput(e.target.value)
         }, 200);
-    
+
         return () => clearTimeout(delay);
     };
     return (

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { getPaginationCryptoAssets } from '../../api/Api';
+import { customColumnNames } from '../../pages/MainTablePage/ColumnNames';
 import { ICurrency } from '../../types/ApiTypes';
 import { SortOrder, SortOrderEnum } from '../../types/SortableTypes';
 import Pagination from '../pagination/Pagination';
 import SearchBar from '../searchBar/SearchBar';
 import SortableColumn from '../sortableColumn/SortableColumn';
-import TableStyles from './MainTable.module.scss';
-import { customColumnNames } from '../../pages/MainTablePage/ColumnNames';
 import TableRow from '../tableRow/TableRow';
+import TableStyles from './MainTable.module.scss';
 
 const MainTable = () => {
     const [cryptoAssets, setCryptoAssets] = useState<ICurrency[]>([]);
@@ -16,16 +16,14 @@ const MainTable = () => {
     const [searchInput, setSearchInput] = useState('');
     const [sortColumn, setSortColumn] = useState<string>('');
     const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrderEnum.ASC);
-    // const imageUrl = `https://assets.coincap.io/assets/icons/${crypto.symbol.toLowerCase()}@2x.png`;
 
     const pageNumbers = Array.from({ length: totalPagesCount }, (item, i) => i + 1);
-    const pageSize = 10;
+    const pageSize = 15;
 
     useEffect(() => {
         async function fetchData() {
-            debugger
+
             try {
-                debugger
                 const offset = (currentPageNumber - 1) * pageSize;
                 const data = await getPaginationCryptoAssets(pageSize, offset, searchInput);
                 const dataWithoutZeroValues = data.filter(obj => {
@@ -42,7 +40,7 @@ const MainTable = () => {
                 setTotalPagesCount(totalCount);
                 setCryptoAssets(dataWithoutZeroValues);
             } catch (error) {
-                console.error('An error occurred:', error);
+                console.error('Api Error:', error);
             }
         }
 
@@ -62,18 +60,13 @@ const MainTable = () => {
         setSortOrder(order);
     };
 
-    const handleRowClick = (crypto: ICurrency) => {
-        // Handle row click and redirection here
-        console.log('Clicked crypto:', crypto);
-    };
-
     return (
         <>
             <div>
                 <SearchBar onSearchInput={handleSearch} />
                 <table className={TableStyles.main_table}>
                     <thead>
-                        <tr>
+                        <tr className='table-head'>
                             <th scope='col'>#</th>
                             <th scope='col'></th>
                             <th scope='col'></th>
@@ -101,7 +94,6 @@ const MainTable = () => {
                                 sortOrder={sortOrder}
                                 onSort={handleSort}
                             />
-
                         </tr>
                     </thead>
                     <tbody>
@@ -110,7 +102,8 @@ const MainTable = () => {
                                 key={crypto.id}
                                 crypto={crypto}
                                 index={index}
-                                onClick={handleRowClick}
+                                currentPage={currentPageNumber}
+                                pageSize={pageSize}
                             />
                         ))}
                     </tbody>

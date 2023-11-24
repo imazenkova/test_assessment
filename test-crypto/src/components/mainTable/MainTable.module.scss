@@ -7,25 +7,45 @@
 }
 
 tr {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+  position: relative;
   height: 10vh;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 20px;
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    background-color: rgba(211, 211, 211, 0.5);
+
+  }
+
+  &:active::before {
+    background-color: #3861fb;
+    opacity: 0.5;
+  }
+
 }
-thead{
+
+thead {
   border-radius: 20px;
-}
-th {
-  background-color: #f5f5f5;
-  color: #777777;
-  padding: 10px;
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
 }
 
 td {
   padding: 10px;
 
+}
+
+td img {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 th span {
