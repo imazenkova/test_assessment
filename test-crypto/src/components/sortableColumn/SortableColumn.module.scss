@@ -1,0 +1,18 @@
+.sortableColumn {
+    cursor: pointer;
+  }
+  
+  .columnContent {
+    display: flex;
+    align-items: center;
+  }
+  
+  .arrowActive {
+    margin-left: 5px;
+    color: #FF0000;
+  }
+  
+  .arrowInactive {
+    margin-left: 5px;
+    color: #000000;
+  }

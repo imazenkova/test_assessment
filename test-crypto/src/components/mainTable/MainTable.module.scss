@@ -1,0 +1,38 @@
+// Define the main_table class
+.main_table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 90%;
+  margin: 0 auto;
+}
+
+tr {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  height: 10vh;
+}
+thead{
+  border-radius: 20px;
+}
+th {
+  background-color: #f5f5f5;
+  color: #777777;
+  padding: 10px;
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+td {
+  padding: 10px;
+
+}
+
+th span {
+  color: #888888;
+  font-size: 12px;
+}
+
+td:last-child {
+  text-align: center;
+}
