@@ -66,7 +66,7 @@ const MainTable = () => {
                 <SearchBar onSearchInput={handleSearch} />
                 <table className={TableStyles.main_table}>
                     <thead>
-                        <tr className='table-head'>
+                        <tr>
                             <th scope='col'>#</th>
                             <th scope='col'></th>
                             <th scope='col'></th>
