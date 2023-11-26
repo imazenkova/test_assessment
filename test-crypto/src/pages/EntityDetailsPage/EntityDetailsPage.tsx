@@ -1,76 +1,118 @@
-import React, { useState, useEffect } from "react";
-import { getEntityDetails } from "../../api/Api";
+import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
-import { ICurrency } from "../../types/ApiTypes";
-import { roundingNumericValues, formatPriceWithSuffix } from "../../utils/formatNumericValue";
+import { useNavigate } from "react-router-dom";
+import { RoutesPath } from "../../types/RoutesTypes";
+import { getEntityDetails, getCryptoHistory } from "../../api/Api";
+import EntityInfo from "../../components/entityInfo/EntityInfo";
 import Loader from "../../components/loader/Loader";
-import Error from "../../components/error/Error";
-import style from "./EntityDetailsPage.module.scss"
+import { ICurrency, IHistory, Interval } from "../../types/ApiTypes";
+import style from "./EntityDetailsPage.module.scss";
+import PriceChart from "../../components/priceChart/PriceChart";
+import AddButton from "../../components/addButton/AddButton";
 
 const EntityDetailsPage = () => {
     const { id } = useParams();
+    const navigate = useNavigate()
     const [entityDetails, setEntityDetails] = useState<ICurrency>();
-    const imageUrl = `https://assets.coincap.io/assets/icons/${entityDetails?.symbol.toLowerCase()}@2x.png`;
+    const [historyData, setHistoryData] = useState<IHistory[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [apiError, setApiError] = useState(false);
+    const [selectedInterval, setSelectedInterval] = useState<Interval>('h1');
+
+    async function fetchHistoryData() {
+        try {
+
+            setIsLoading(true)
+
+            const currentDate = new Date();
+            const currentTimestamp = currentDate.getTime();
+
+            const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+            const oneMonthAgoTimestamp = currentTimestamp - thirtyDays
+
+            const data = await getCryptoHistory(id!, selectedInterval, oneMonthAgoTimestamp, currentTimestamp);
+
+            setHistoryData(data);
+            setIsLoading(false)
+        } catch (error) {
+            console.error('Fetch getCryptoHistory Error:', error);
+            setIsLoading(false)
+            setApiError(true)
+        }
+    }
+    async function fetchDetailsData() {
+        try {
+            setIsLoading(true)
+            const data = await getEntityDetails(id!);
+            setEntityDetails(data);
+            setIsLoading(false)
+        } catch (error) {
+            console.error('Fetch getEntityDetails Error:', error);
+            setIsLoading(false)
+            setApiError(true)
+        }
+    }
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                if (id) {
-                    const data = await getEntityDetails(id);
-                    setEntityDetails(data);
-                    setIsLoading(false)
-                }
-            
-            } catch (error) {
-                console.error('Api getEntityDetails Error:', error);
-                setIsLoading(false)
-                setApiError(true)
-            }
+        fetchHistoryData();
+        fetchDetailsData();
+    }, []);
 
-        }
-        fetchData();
+    useEffect(() => {
+        fetchDetailsData();
     }, [id]);
+
+    useEffect(() => {
+        fetchHistoryData();
+    }, [id, selectedInterval]);
+
+    useEffect(() => {
+        if (apiError) {
+            navigate(`${RoutesPath.ENTITY_DETAILS}/${id}/error`)
+        }
+    }, [apiError, id, navigate])
+
+    const handleIntervalChange = (interval: Interval) => {
+        setSelectedInterval(interval);
+    };
 
     return (
         <>
-            {isLoading ? (<Loader message="Loading..." /> ): apiError ? (
-        <Error message="The selected coin does not exist :(" />
-      ) : ( <div>
-                {entityDetails && (
-                    <div className={style.container}>
-                        <div className={style.details_block}>
-                            <div></div>
-                            <div className={style.title_info}>
-                                <div className={style.img}> <img src={imageUrl} alt="" /></div>
-                                <div className={style.crypto_symbol}>{entityDetails.symbol}</div>
-                                <div className={style.name}>{entityDetails.name}</div>
+            {isLoading ? <Loader message="Loading..." /> :
+                <div>
+                    <div className={style.wrapper}>
+                        <div className={style.container}>
+                            <div className={style.info_block}>
+                                <AddButton id={id!} />
+                                <EntityInfo entityDetails={entityDetails!} />
                             </div>
-                            <div className={style.price}>${formatPriceWithSuffix(parseFloat(entityDetails.priceUsd))}</div>
-                            <div className={style.value_block}>
-                                <div className={style.key_of_value_block}>Rank:</div>
-                                <div className={style.numeric_values} >{roundingNumericValues(parseFloat(entityDetails.rank))}</div>
-                            </div>
-                            <div className={style.value_block}>
-                                <div className={style.key_of_value_block}>Market Cap:</div>
-                                <div className={style.numeric_values}>{roundingNumericValues(parseFloat(entityDetails.marketCapUsd))}</div>
-                            </div>
-                            <div className={style.value_block}>
-                                <div className={style.key_of_value_block}>Supply:</div>
-                                <div className={style.numeric_values}>{roundingNumericValues(parseFloat(entityDetails.supply))} {entityDetails.symbol}</div>
-                            </div>
-                            <div className={style.value_block}>
-                                <div className={style.key_of_value_block}>Max. Supply:</div>
-                                <div className={style.numeric_values}>{roundingNumericValues(parseFloat(entityDetails.maxSupply))} {entityDetails.symbol}</div>
+                            <div className={style.schedule_block}>
+                                <div className={style.intervalButtons}>
+                                    <button
+                                        className={`${style.intervalButton} ${selectedInterval === 'h1' && style.selected
+                                            }`}
+                                        onClick={() => handleIntervalChange('h1')}
+                                    >
+                                        1 Hour
+                                    </button>
+                                    <button
+                                        className={`${style.intervalButton} ${selectedInterval === 'h12' && style.selected}`}
+                                        onClick={() => handleIntervalChange('h12')}
+                                    >
+                                        12 Hours
+                                    </button>
+                                    <button
+                                        className={`${style.intervalButton} ${selectedInterval === 'd1' && style.selected}`}
+                                        onClick={() => handleIntervalChange('d1')}
+                                    >
+                                        1 Day
+                                    </button>
+                                </div>
+                                <PriceChart historyData={historyData} interval={selectedInterval} />
                             </div>
                         </div>
-                        <div className={style.schedule_block}></div>
                     </div>
-                )}
-            </div>)
-            }
-
+                </div>}
         </>
     )
 };

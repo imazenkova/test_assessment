@@ -1,0 +1,25 @@
+.conteiner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5rem;
+
+    button {
+        color: rgb(53, 162, 235);
+        // background-color: #eee;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-weight: bold;
+        width: 36px;
+        font-size: 25px;
+        height: 36px;
+        border-radius: 50%;
+
+        &:hover {
+            background-color: rgb(53, 162, 235);
+            color: white
+        }
+    }
+}

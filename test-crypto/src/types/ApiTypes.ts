@@ -13,7 +13,17 @@ export interface ICurrency {
     explorer: string
 }
 
+export interface IHistory {
+    priceUsd: string;
+    time: number;
+    date: string;
+    circulatingSupply?: string;
+}
+
+export type Interval = 'h1' | 'h12' | 'd1';
+
 export enum ApiEndpoint {
     ASSETS = "/assets"
 }
+
 

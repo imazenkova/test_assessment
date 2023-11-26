@@ -30,11 +30,12 @@ const MainTable = () => {
                 const data = await getPaginationCryptoAssets(pageSize, offset, searchInput);
                 const dataWithoutZeroValues = data.filter(obj => {
 
-                    const isValid = parseFloat(obj.priceUsd) !== null && parseFloat(obj.priceUsd) !== 0 &&
-                        parseFloat(obj.marketCapUsd) !== null && parseFloat(obj.marketCapUsd) !== 0 &&
-                        parseFloat(obj.supply) !== null && parseFloat(obj.supply) !== 0 &&
-                        parseFloat(obj.volumeUsd24Hr) !== null && parseFloat(obj.volumeUsd24Hr) !== 0 &&
-                        parseFloat(obj.changePercent24Hr) !== null && parseFloat(obj.changePercent24Hr) !== 0;
+                    const isValid = !isNaN(parseFloat(obj.priceUsd)) && parseFloat(obj.priceUsd) !== 0 &&
+                        !isNaN(parseFloat(obj.marketCapUsd)) && parseFloat(obj.marketCapUsd) !== 0 &&
+                        !isNaN(parseFloat(obj.supply)) && parseFloat(obj.supply) !== 0 &&
+                        !isNaN(parseFloat(obj.volumeUsd24Hr)) && parseFloat(obj.volumeUsd24Hr) !== 0 &&
+                        !isNaN(parseFloat(obj.changePercent24Hr)) && parseFloat(obj.changePercent24Hr) !== 0 &&
+                        !isNaN(parseFloat(obj.maxSupply)) && parseFloat(obj.maxSupply) !== 0
 
                     return isValid;
                 });
@@ -65,60 +66,60 @@ const MainTable = () => {
 
     return (
         <>
-         {isLoading ? <Loader message="Loading..." /> : 
-            <div>
-                <SearchBar onSearchInput={handleSearch} />
-                <table className={TableStyles.main_table}>
-                    <thead>
-                        <tr>
-                            <th scope='col'>#</th>
-                            <th scope='col'></th>
-                            <th scope='col'></th>
-                            <th scope='col'>{customColumnNames.name}</th>
-                            <SortableColumn
-                                cryptoAssets={cryptoAssets}
-                                columnName='priceUsd'
-                                sortColumn={sortColumn}
-                                sortOrder={sortOrder}
-                                onSort={handleSort}
-                            />
-                            <SortableColumn
-                                cryptoAssets={cryptoAssets}
-                                columnName="marketCapUsd"
-                                sortColumn={sortColumn}
-                                sortOrder={sortOrder}
-                                onSort={handleSort}
-                            />
-                            <th scope='col'>{customColumnNames.supply}</th>
-                            <th scope='col'>{customColumnNames.volumeUsd24Hr}</th>
-                            <SortableColumn
-                                cryptoAssets={cryptoAssets}
-                                columnName="changePercent24Hr"
-                                sortColumn={sortColumn}
-                                sortOrder={sortOrder}
-                                onSort={handleSort}
-                            />
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {cryptoAssets.map((crypto, index) => (
-                            <TableRow
-                                key={crypto.id}
-                                crypto={crypto}
-                                index={index}
-                                currentPage={currentPageNumber}
-                                pageSize={pageSize}
-                            />
-                        ))}
-                    </tbody>
-                </table>
-                <Pagination
-                    currentPage={currentPageNumber}
-                    totalPages={totalPagesCount}
-                    pageNumbers={pageNumbers}
-                    onPageChange={handlePageChange}
-                />
-            </div >}
+            {isLoading ? <Loader message="Loading..." /> :
+                <div>
+                    <SearchBar onSearchInput={handleSearch} />
+                    <table className={TableStyles.main_table}>
+                        <thead>
+                            <tr>
+                                <th scope='col'>#</th>
+                                <th scope='col'></th>
+                                <th scope='col'></th>
+                                <th scope='col'>{customColumnNames.name}</th>
+                                <SortableColumn
+                                    cryptoAssets={cryptoAssets}
+                                    columnName='priceUsd'
+                                    sortColumn={sortColumn}
+                                    sortOrder={sortOrder}
+                                    onSort={handleSort}
+                                />
+                                <SortableColumn
+                                    cryptoAssets={cryptoAssets}
+                                    columnName="marketCapUsd"
+                                    sortColumn={sortColumn}
+                                    sortOrder={sortOrder}
+                                    onSort={handleSort}
+                                />
+                                <th scope='col'>{customColumnNames.supply}</th>
+                                <th scope='col'>{customColumnNames.volumeUsd24Hr}</th>
+                                <SortableColumn
+                                    cryptoAssets={cryptoAssets}
+                                    columnName="changePercent24Hr"
+                                    sortColumn={sortColumn}
+                                    sortOrder={sortOrder}
+                                    onSort={handleSort}
+                                />
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {cryptoAssets.map((crypto, index) => (
+                                <TableRow
+                                    key={crypto.id}
+                                    crypto={crypto}
+                                    index={index}
+                                    currentPage={currentPageNumber}
+                                    pageSize={pageSize}
+                                />
+                            ))}
+                        </tbody>
+                    </table>
+                    <Pagination
+                        currentPage={currentPageNumber}
+                        totalPages={totalPagesCount}
+                        pageNumbers={pageNumbers}
+                        onPageChange={handlePageChange}
+                    />
+                </div >}
         </>
     );
 };

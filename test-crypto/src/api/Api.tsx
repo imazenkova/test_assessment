@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ApiEndpoint, ICurrency } from '../types/ApiTypes';
+import { ApiEndpoint, ICurrency, IHistory } from '../types/ApiTypes';
 
 export const apiUrl = 'https://api.coincap.io/v2/';
 const api = axios.create({ baseURL: apiUrl })
@@ -29,9 +29,10 @@ export const getEntityDetails = async (id: string): Promise<ICurrency> => {
         throw error;
     }
 };
-export  const getCryptoHistory = async (id: string | null, interval: string, start: number, end: number) => {
+export const getCryptoHistory = async (id: string, interval: string, start: number, end: number): Promise<IHistory[]> => {
     try {
-        const response = await axios.get(`${ApiEndpoint.ASSETS}/${id}/history`, {
+
+        const response = await api.get(`${ApiEndpoint.ASSETS}/${id}/history`, {
             params: {
                 interval,
                 start,
@@ -40,7 +41,7 @@ export  const getCryptoHistory = async (id: string | null, interval: string, sta
         });
         return response.data.data;
     } catch (error) {
-        console.error('Api getCryptoHistory occurred:', error);
+        console.error('Api getCryptoHistory error:', error);
         throw error;
     }
 };
