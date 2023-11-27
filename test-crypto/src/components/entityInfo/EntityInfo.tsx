@@ -16,8 +16,7 @@ const EntityInfo: React.FC<EntityInfoProps> = ({ entityDetails }) => {
     return (
         <>
             {entityDetails && (
-                <>
-                    <div></div>
+                <div className={style.container_info}>
                     <div className={style.title_info}>
                         <div className={style.img}> <img src={imageUrl} alt="" /></div>
                         <div className={style.crypto_symbol}>{entityDetails.symbol}</div>
@@ -40,7 +39,7 @@ const EntityInfo: React.FC<EntityInfoProps> = ({ entityDetails }) => {
                         <div className={style.key_of_value_block}>{customColumnNames.maxSupply}:</div>
                         <div className={style.numeric_values}>{roundingNumericValues(parseFloat(entityDetails.maxSupply))} {entityDetails.symbol}</div>
                     </div>
-                </>)}
+                </div>)}
         </>
     )
 };

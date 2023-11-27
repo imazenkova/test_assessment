@@ -20,15 +20,20 @@ export const getPaginationCryptoAssets = async (limit: number, offset: number, s
         throw error;
     }
 };
+
 export const getEntityDetails = async (id: string): Promise<ICurrency> => {
     try {
+
         const response = await api.get(`${ApiEndpoint.ASSETS}/${id}`, {});
+
         return response.data.data;
+        
     } catch (error) {
         console.error('Api getEntityDetails error :', error);
         throw error;
     }
 };
+
 export const getCryptoHistory = async (id: string, interval: string, start: number, end: number): Promise<IHistory[]> => {
     try {
 
@@ -39,9 +44,27 @@ export const getCryptoHistory = async (id: string, interval: string, start: numb
                 end,
             },
         });
+
         return response.data.data;
+
     } catch (error) {
         console.error('Api getCryptoHistory error:', error);
+        throw error;
+    }
+};
+
+export const getTopRankedCoins = async (top: number): Promise<ICurrency[]> => {
+    try {
+
+        const response = await api.get(ApiEndpoint.ASSETS, {});
+        const currencies = response.data.data;
+        currencies.sort((a: ICurrency, b: ICurrency) => parseFloat(b.rank) - parseFloat(a.rank));
+        const topCurrencies = currencies.slice(0, top);
+
+        return topCurrencies;
+
+    } catch (error) {
+        console.error('Api getPaginationCryptoAssets error :', error);
         throw error;
     }
 };

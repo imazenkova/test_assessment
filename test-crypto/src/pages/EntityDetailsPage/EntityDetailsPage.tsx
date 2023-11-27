@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-import { RoutesPath } from "../../types/RoutesTypes";
-import { getEntityDetails, getCryptoHistory } from "../../api/Api";
+import { useNavigate, useParams } from 'react-router-dom';
+import { getCryptoHistory, getEntityDetails } from "../../api/Api";
+import AddButton from "../../components/addButton/AddButton";
 import EntityInfo from "../../components/entityInfo/EntityInfo";
 import Loader from "../../components/loader/Loader";
-import { ICurrency, IHistory, Interval } from "../../types/ApiTypes";
-import style from "./EntityDetailsPage.module.scss";
 import PriceChart from "../../components/priceChart/PriceChart";
-import AddButton from "../../components/addButton/AddButton";
+import { ICurrency, IHistory, Interval } from "../../types/ApiTypes";
+import { RoutesPath } from "../../types/RoutesTypes";
+import style from "./EntityDetailsPage.module.scss";
+import MoveToTableButton from "../../components/moveToTableButton/MoveToTableButton";
 
 const EntityDetailsPage = () => {
     const { id } = useParams();
@@ -29,7 +29,7 @@ const EntityDetailsPage = () => {
 
             const thirtyDays = 30 * 24 * 60 * 60 * 1000;
             const oneMonthAgoTimestamp = currentTimestamp - thirtyDays
-            
+
             if (!id) return
 
             const data = await getCryptoHistory(id, selectedInterval, oneMonthAgoTimestamp, currentTimestamp);
@@ -37,23 +37,25 @@ const EntityDetailsPage = () => {
             setHistoryData(data);
             setIsLoading(false)
         } catch (error) {
+            setApiError(true)
             console.error('Fetch getCryptoHistory Error:', error);
             setIsLoading(false)
-            setApiError(true)
+
         }
     }
     async function fetchDetailsData() {
         try {
             setIsLoading(true)
             if (!id) return
-            
+
             const data = await getEntityDetails(id);
             setEntityDetails(data);
             setIsLoading(false)
         } catch (error) {
+            setApiError(true)
             console.error('Fetch getEntityDetails Error:', error);
             setIsLoading(false)
-            setApiError(true)
+
         }
     }
 
@@ -82,13 +84,14 @@ const EntityDetailsPage = () => {
 
     return (
         <>
-            {isLoading ? <Loader message="Loading..." /> :
-                <div>
+            {isLoading ? <Loader message="Loading..." /> : apiError ? (<></>) :
+                (<div>
                     <div className={style.wrapper}>
                         <div className={style.container}>
                             <div className={style.info_block}>
                                 <AddButton coinId={id!} cost={parseFloat(entityDetails!.priceUsd)} />
                                 <EntityInfo entityDetails={entityDetails!} />
+                                <MoveToTableButton />
                             </div>
                             <div className={style.schedule_block}>
                                 <div className={style.intervalButtons}>
@@ -116,7 +119,7 @@ const EntityDetailsPage = () => {
                             </div>
                         </div>
                     </div>
-                </div>}
+                </div>)}
         </>
     )
 };

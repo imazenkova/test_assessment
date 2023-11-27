@@ -24,7 +24,10 @@
     flex-direction: column;
     margin-right: 3rem;
 
-    .title_info {
+    .container_info{ 
+      margin-top: 20px;
+      margin-bottom: 20px;
+      .title_info {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -34,8 +37,8 @@
         justify-content: space-between;
         align-items: center;
       }
-    }
-
+    }}
+   
     img {
       width: 25px;
       height: 25px;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainTablePage from '../pages/MainTablePage/MainTablePage';
 import { RoutesPath } from '../types/RoutesTypes';
-import ErrorIDPage from '../pages/ErrorIDPage/ErrorPage';
+import ErrorIDPage from '../pages/ErrorIDPage/ErrorIDPage';
 import ErrorUrlPage from '../pages/ErrorUrlPage/ErrorUrlPage';
 import EntityDetailsPage from '../pages/EntityDetailsPage/EntityDetailsPage';
 
