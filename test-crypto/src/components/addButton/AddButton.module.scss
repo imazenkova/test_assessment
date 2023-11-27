@@ -1,11 +1,10 @@
-.conteiner {
+.container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-bottom: 5rem;
 
-    button {
+    .plus_button {
         color: rgb(53, 162, 235);
         // background-color: #eee;
         border: none;

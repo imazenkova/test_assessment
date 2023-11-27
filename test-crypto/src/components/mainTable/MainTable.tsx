@@ -99,6 +99,7 @@ const MainTable = () => {
                                     sortOrder={sortOrder}
                                     onSort={handleSort}
                                 />
+                                <th>+</th>
                             </tr>
                         </thead>
                         <tbody>

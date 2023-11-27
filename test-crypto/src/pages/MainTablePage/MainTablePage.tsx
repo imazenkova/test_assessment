@@ -4,9 +4,7 @@ const MainTablePage: React.FC = () => {
 
   return (
     <>
-    
     <div>
-      
       <MainTable />
     </div>
     </>

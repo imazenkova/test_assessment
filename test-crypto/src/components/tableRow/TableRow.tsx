@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ICurrency } from '../../types/ApiTypes';
 import { formatPriceWithSuffix, roundingNumericValues } from '../../utils/formatNumericValue';
 import { RoutesPath } from '../../types/RoutesTypes';
+import AddButton from '../addButton/AddButton';
 
 interface TableRowProps {
     crypto: ICurrency;
@@ -21,22 +22,21 @@ const TableRow: React.FC<TableRowProps> = ({ crypto, index, currentPage, pageSiz
 
     return (
 
-        <tr key={crypto.id} onClick={() => handleClick(crypto.id)}>
-
-            <td>{(currentPage - 1) * pageSize + index + 1}</td>
+        <tr key={crypto.id} >
+            <td onClick={() => handleClick(crypto.id)}>{(currentPage - 1) * pageSize + index + 1}</td>
             <td>
                 <img src={imageUrl} alt="" />
             </td>
-            <td>{crypto.symbol}</td>
-            <td>{crypto.name}</td>
-            <td>{formatPriceWithSuffix(parseFloat(crypto.priceUsd))}</td>
-            <td>{formatPriceWithSuffix(parseFloat(crypto.marketCapUsd))}</td>
-            <td>{roundingNumericValues(parseFloat(crypto.supply))}</td>
-            <td>{formatPriceWithSuffix(parseFloat(crypto.volumeUsd24Hr))}</td>
-            <td>{formatPriceWithSuffix(parseFloat(crypto.changePercent24Hr))}%</td>
-
+            <td onClick={() => handleClick(crypto.id)} >{crypto.symbol}</td>
+            <td onClick={() => handleClick(crypto.id)} >{crypto.name}</td>
+            <td onClick={() => handleClick(crypto.id)} >{formatPriceWithSuffix(parseFloat(crypto.priceUsd))}</td>
+            <td onClick={() => handleClick(crypto.id)} >{formatPriceWithSuffix(parseFloat(crypto.marketCapUsd))}</td>
+            <td onClick={() => handleClick(crypto.id)} >{roundingNumericValues(parseFloat(crypto.supply))}</td>
+            <td onClick={() => handleClick(crypto.id)}>{formatPriceWithSuffix(parseFloat(crypto.volumeUsd24Hr))}</td>
+            <td onClick={() => handleClick(crypto.id)} >{formatPriceWithSuffix(parseFloat(crypto.changePercent24Hr))}%</td>
+            <td ><AddButton coinId={crypto.id} cost={parseFloat(crypto.priceUsd)}/></td>
         </tr>
-
+        
     );
 };
 

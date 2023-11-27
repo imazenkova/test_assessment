@@ -29,8 +29,10 @@ const EntityDetailsPage = () => {
 
             const thirtyDays = 30 * 24 * 60 * 60 * 1000;
             const oneMonthAgoTimestamp = currentTimestamp - thirtyDays
+            
+            if (!id) return
 
-            const data = await getCryptoHistory(id!, selectedInterval, oneMonthAgoTimestamp, currentTimestamp);
+            const data = await getCryptoHistory(id, selectedInterval, oneMonthAgoTimestamp, currentTimestamp);
 
             setHistoryData(data);
             setIsLoading(false)
@@ -43,7 +45,9 @@ const EntityDetailsPage = () => {
     async function fetchDetailsData() {
         try {
             setIsLoading(true)
-            const data = await getEntityDetails(id!);
+            if (!id) return
+            
+            const data = await getEntityDetails(id);
             setEntityDetails(data);
             setIsLoading(false)
         } catch (error) {
@@ -83,7 +87,7 @@ const EntityDetailsPage = () => {
                     <div className={style.wrapper}>
                         <div className={style.container}>
                             <div className={style.info_block}>
-                                <AddButton id={id!} />
+                                <AddButton coinId={id!} cost={parseFloat(entityDetails!.priceUsd)} />
                                 <EntityInfo entityDetails={entityDetails!} />
                             </div>
                             <div className={style.schedule_block}>

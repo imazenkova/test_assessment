@@ -1,0 +1,123 @@
+// AddToBackpack.module.scss
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    h2 {
+      font-size: 24px;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: gray;
+      text-align: center;
+      padding-right: 5px;
+
+      &.center {
+        text-align: center;
+      }
+    }
+
+    input {
+      width: 40%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .button_add_container {
+      display: flex;
+      justify-content: center;
+    }
+
+    button {
+      display: block;
+      width: 40%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    .emptyInput {
+      color: red;
+    }
+
+    .button_close_container {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .round_button {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #333;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cross_icon {
+      color: #fff;
+      font-size: 20px;
+    }
+
+    .quintity_container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .notification {
+    background-color: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 3px;
+  }
+}

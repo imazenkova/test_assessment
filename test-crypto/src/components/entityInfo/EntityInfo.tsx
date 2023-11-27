@@ -34,7 +34,7 @@ const EntityInfo: React.FC<EntityInfoProps> = ({ entityDetails }) => {
                     </div>
                     <div className={style.value_block}>
                         <div className={style.key_of_value_block}>{customColumnNames.supply} :</div>
-                        <div className={style.numeric_values}>{roundingNumericValues(parseFloat(entityDetails.supply))} {entityDetails!.symbol}</div>
+                        <div className={style.numeric_values}>{roundingNumericValues(parseFloat(entityDetails.supply))} {entityDetails.symbol}</div>
                     </div>
                     <div className={style.value_block}>
                         <div className={style.key_of_value_block}>{customColumnNames.maxSupply}:</div>
