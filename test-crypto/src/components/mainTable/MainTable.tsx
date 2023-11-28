@@ -9,6 +9,7 @@ import SortableColumn from '../sortableColumn/SortableColumn';
 import TableRow from '../tableRow/TableRow';
 import TableStyles from './MainTable.module.scss';
 import Loader from '../loader/Loader';
+import Header from '../header/Header';
 
 const MainTable = () => {
     const [cryptoAssets, setCryptoAssets] = useState<ICurrency[]>([]);
@@ -22,32 +23,32 @@ const MainTable = () => {
     const pageNumbers = Array.from({ length: totalPagesCount }, (item, i) => i + 1);
     const pageSize = 15;
 
-    useEffect(() => {
-        async function fetchData() {
+    async function fetchData() {
 
-            try {
-                const offset = (currentPageNumber - 1) * pageSize;
-                const data = await getPaginationCryptoAssets(pageSize, offset, searchInput);
-                const dataWithoutZeroValues = data.filter(obj => {
+        try {
+            const offset = (currentPageNumber - 1) * pageSize;
+            const data = await getPaginationCryptoAssets(pageSize, offset, searchInput);
+            const dataWithoutZeroValues = data.filter(obj => {
 
-                    const isValid = !isNaN(parseFloat(obj.priceUsd)) && parseFloat(obj.priceUsd) !== 0 &&
-                        !isNaN(parseFloat(obj.marketCapUsd)) && parseFloat(obj.marketCapUsd) !== 0 &&
-                        !isNaN(parseFloat(obj.supply)) && parseFloat(obj.supply) !== 0 &&
-                        !isNaN(parseFloat(obj.volumeUsd24Hr)) && parseFloat(obj.volumeUsd24Hr) !== 0 &&
-                        !isNaN(parseFloat(obj.changePercent24Hr)) && parseFloat(obj.changePercent24Hr) !== 0 &&
-                        !isNaN(parseFloat(obj.maxSupply)) && parseFloat(obj.maxSupply) !== 0
+                const isValid = !isNaN(parseFloat(obj.priceUsd)) && parseFloat(obj.priceUsd) !== 0 &&
+                    !isNaN(parseFloat(obj.marketCapUsd)) && parseFloat(obj.marketCapUsd) !== 0 &&
+                    !isNaN(parseFloat(obj.supply)) && parseFloat(obj.supply) !== 0 &&
+                    !isNaN(parseFloat(obj.volumeUsd24Hr)) && parseFloat(obj.volumeUsd24Hr) !== 0 &&
+                    !isNaN(parseFloat(obj.changePercent24Hr)) && parseFloat(obj.changePercent24Hr) !== 0 &&
+                    !isNaN(parseFloat(obj.maxSupply)) && parseFloat(obj.maxSupply) !== 0
 
-                    return isValid;
-                });
-                const totalCount = offset + data.length;
-                setTotalPagesCount(totalCount);
-                setCryptoAssets(dataWithoutZeroValues);
-                setIsLoading(false)
-            } catch (error) {
-                console.error('Api Error:', error);
-            }
+                return isValid;
+            });
+            const totalCount = offset + data.length;
+            setTotalPagesCount(totalCount);
+            setCryptoAssets(dataWithoutZeroValues);
+            setIsLoading(false)
+        } catch (error) {
+            console.error('Api Error:', error);
         }
+    }
 
+    useEffect(() => {
         fetchData();
     }, [currentPageNumber, searchInput]);
 

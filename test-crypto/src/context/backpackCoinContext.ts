@@ -7,8 +7,8 @@ export interface ICoin {
 }
 
 interface BackpacCoinsContextType {
-    coins: ICoin[];
-    updateCoinQuantity: (coinId: string, newQuantity: number, newCost: number) => void;
+    getBackpack: () => ICoin[];
+    setBackpack:(coinId: string, newQuantity: number, newCost: number)=>void;
 }
 
 const BackpackCoinsContext = React.createContext<BackpacCoinsContextType | undefined>(undefined);

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-// import logo from '../../assets/pngwing.com.png';
 import styles from './Header.module.scss';
-// import Portfolio from '../../stories/portfolio/Portfolio';
 import { getTopRankedCoins } from '../../api/Api';
 import { ICurrency } from '../../types/ApiTypes';
 import { formatPriceWithSuffix } from '../../utils/formatNumericValue';
 import TopRankedCurrency from '../topRankedCurrency/TopRankedCurrency';
+import Backpack from '../backpack/Backpack';
 
 interface TopCoinProps {
   id: string;
@@ -38,7 +37,7 @@ function Header() {
       id: coin.id,
       name: coin.name,
       symbol: coin.symbol,
-      priceUsd:(formatPriceWithSuffix(parseFloat(coin.priceUsd))),
+      priceUsd: (formatPriceWithSuffix(parseFloat(coin.priceUsd))),
     };
   };
 
@@ -55,7 +54,7 @@ function Header() {
           })}
         </div>
         <div className={styles.navbar_right}>
-          {/* <Portfolio /> */}
+          <Backpack />
         </div>
       </header>
     </div>

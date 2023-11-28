@@ -17,12 +17,13 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
     isOpen,
     onClose,
 }) => {
-    const coinsContext = useContext(BackpackCoinsContext);
-    const { updateCoinQuantity } = coinsContext!;
+    const context = useContext(BackpackCoinsContext)
+    const { setBackpack } = context!;
 
     const [quantity, setQuantity] = useState<number>();
     const [showEmptyInput, setShowEmptyInput] = useState(false);
     const [showSuccNotification, setShowSuccNotification] = useState(false);
+
 
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
         if (event.target === event.currentTarget) {
@@ -33,7 +34,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
     const handleAdd = () => {
         try {
             if (!quantity || quantity < 0 || quantity > 1000001) return setShowEmptyInput(true);
-            updateCoinQuantity(coinId, quantity, cost);
+            setBackpack(coinId, quantity, cost);
             setShowSuccNotification(true)
         } catch (error) {
             console.log("UpdateCoinQuantity Error: ", error)
@@ -53,7 +54,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
                     </button>
                 </div>
                 <h2>Add to Backpack</h2>
-                <p>Coi: {coinId}</p>
+                <p>Coin: {coinId}</p>
                 <p>Cost: {roundingNumericValues(cost)}</p>
                 <div className={styles.quintity_container}>
                     <input type='number' min={0} max="1000000" value={quantity} onChange={(e) => {
@@ -61,7 +62,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
                     }} />
                 </div>
 
-                {showEmptyInput && (<p className={styles.emptyInput}>Enter the correct quantity!</p>)}
+                {showEmptyInput && (<p className={styles.emptyInput}>Enter the correct quantity (between 0 and 1000000)!</p>)}
                 <div className={styles.button_add_container}>
                     <button onClick={handleAdd}>Add</button>
 
