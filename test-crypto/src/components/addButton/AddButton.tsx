@@ -14,6 +14,7 @@ const AddButton: React.FC<AddButtonProps> = ({ coinId, cost }) => {
     
     const handleCloseModal = () => {
         setShowModal(false);
+        window.location.reload();
     };
     return (
         <div className={style.container}>

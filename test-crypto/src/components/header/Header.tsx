@@ -8,7 +8,7 @@ import TopRankedCurrency from '../topRankedCurrency/TopRankedCurrency';
 import Backpack from '../backpack/Backpack';
 import BackpackCoinsContext from '../../context/backpackCoinContext';
 import { useContext } from 'react';
-import { RoutesPath } from '../../types/RoutesTypes';
+
 
 interface TopCoinProps {
   id: string;
@@ -16,11 +16,16 @@ interface TopCoinProps {
   symbol: string;
   priceUsd: string;
 }
+interface IChanges {
+  percent: string;
+  difference: string;
+}
 
 function Header() {
-
   const context = useContext(BackpackCoinsContext)
-  const { updateFreshCoins } = context!;
+  const { updateFreshCoins, getBackpack } = context!;
+
+  const [costChange, setCostChange] = useState<IChanges>()
 
   const [topCurrencyData, setTopCurrencyData] = useState<ICurrency[]>()
   const topLimit = 3
@@ -34,10 +39,42 @@ function Header() {
       console.log("GetTopCoin error:", error)
     }
   }
-  async function getNewCoins() {
+  async function getChanges() {
     try {
+      debugger
       const allCoins = await getAllCoins()
       updateFreshCoins(allCoins)
+      const backpackData = getBackpack()
+
+      const newData = backpackData.map(item => {
+
+        const coin = allCoins.find((coin: ICurrency) => coin.id === item.coinId);
+        if (coin) {
+          return { ...item, price: coin.priceUsd };
+        }
+        return item;
+      });
+      const newTotalCost = newData.reduce((acc, item) => {
+        return acc + (item.cost * item.quantity);
+      }, 0);
+
+      const oldTotalCost = localStorage.getItem("totalCost")
+      if (oldTotalCost) {
+        const percentChange = ((newTotalCost - parseFloat(oldTotalCost)) / parseFloat(oldTotalCost)) * 100;
+        const difference = newTotalCost - parseFloat(oldTotalCost)
+
+        const percentString = (percentChange >= 0 ? '+' : '') + percentChange.toFixed(2) + '%';
+        const differenceString = (difference >= 0 ? '+' : '') + difference.toFixed(2);
+        setCostChange({
+          percent: percentString,
+          difference: differenceString
+        })
+      }else{
+        setCostChange({
+          percent: "+0.00",
+          difference: "+0.00%"
+        })
+      }
 
     } catch (error) {
       console.log("GetTopCoin error:", error)
@@ -46,7 +83,7 @@ function Header() {
 
   useEffect(() => {
     getTopCoins(topLimit)
-    getNewCoins();
+    getChanges();
   }, [])
 
   const prepareTopRankedCurrency = (coin: ICurrency): TopCoinProps => {
@@ -70,6 +107,10 @@ function Header() {
         </div>
         <div className={styles.navbar_right}>
           <Backpack />
+
+        </div>
+        <div> 
+          {costChange && <><p>{costChange.difference}</p> <p> {`(${costChange.percent})`}</p></>}
         </div>
       </header>
     </div>

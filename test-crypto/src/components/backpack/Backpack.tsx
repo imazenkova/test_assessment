@@ -41,6 +41,7 @@ const Backpack = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
+        window.location.reload();
     };
 
     return (<>
