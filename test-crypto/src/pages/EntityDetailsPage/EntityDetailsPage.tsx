@@ -8,7 +8,6 @@ import PriceChart from "../../components/priceChart/PriceChart";
 import { ICurrency, IHistory, Interval } from "../../types/ApiTypes";
 import { RoutesPath } from "../../types/RoutesTypes";
 import style from "./EntityDetailsPage.module.scss";
-import MoveToTableButton from "../../components/moveToTableButton/MoveToTableButton";
 
 const EntityDetailsPage = () => {
     const { id } = useParams();
@@ -91,7 +90,6 @@ const EntityDetailsPage = () => {
                             <div className={style.info_block}>
                                 <AddButton coinId={id!} cost={parseFloat(entityDetails!.priceUsd)} />
                                 <EntityInfo entityDetails={entityDetails!} />
-                                <MoveToTableButton />
                             </div>
                             <div className={style.schedule_block}>
                                 <div className={style.intervalButtons}>

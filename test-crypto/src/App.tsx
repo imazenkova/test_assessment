@@ -3,8 +3,11 @@ import './App.scss';
 import BackpackCoinsContext, { ICoin } from './context/backpackCoinContext';
 import AppRoutes from './routes/AppRoutes';
 import Header from './components/header/Header';
+import { ICurrency } from './types/ApiTypes';
 
 function App() {
+
+  const [freshCoins, setFreshCoins] = useState<ICurrency[]>([])
 
   const getBackpack = (): ICoin[] => {
     let backpack = localStorage.getItem("backpack")
@@ -17,7 +20,7 @@ function App() {
   };
 
   const setBackpack = (coinId: string, newQuantity: number, newCost: number) => {
-    debugger
+
     let backpack = localStorage.getItem("backpack")
     let result: ICoin[] = []
 
@@ -43,10 +46,12 @@ function App() {
     }
     localStorage.setItem("backpack", JSON.stringify(result))
   }
-
+  const updateFreshCoins = (coins: ICurrency[]) => {
+    setFreshCoins(coins)
+  }
 
   return (
-    <BackpackCoinsContext.Provider value={{ getBackpack, setBackpack }}>
+    <BackpackCoinsContext.Provider value={{ freshCoins, updateFreshCoins, getBackpack, setBackpack }}>
       <div className="App">
         <Header />
         <AppRoutes />

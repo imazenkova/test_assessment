@@ -4,6 +4,7 @@ import { useContext } from "react";
 import BackpackCoinsContext from "../../context/backpackCoinContext";
 import styles from "./Backpack.module.scss"
 import { roundingNumericValues } from "../../utils/formatNumericValue";
+import RemoveCoinModal from "../removeCoinModal/RemoveCoinModal";
 
 interface ICoinSumMap {
     [key: string]: number;
@@ -11,22 +12,16 @@ interface ICoinSumMap {
 
 
 const Backpack = () => {    
-    const [coinSumMap, setCoinsSumMap] = useState<ICoinSumMap>()
-    const [totalCost, setTotalCost] = useState<number>()
 
+    const [totalCost, setTotalCost] = useState<number>()
+    const [showModal, setShowModal] = useState<boolean>(false)
+    
     const context = useContext(BackpackCoinsContext)
     const { getBackpack } = context!;
 
     async function countCoins(backpack: ICoin[]) {
         try {
-            const coinSumMap: ICoinSumMap = {};
-
-            backpack.forEach((curr: ICoin) => {
-                coinSumMap[curr.coinId] = curr.quantity * curr.cost;
-            });
             const totalCost = backpack.reduce((acc, curr) => acc += curr.cost * curr.quantity, 0)
-
-            setCoinsSumMap(coinSumMap);
             localStorage.setItem('totalCost', totalCost.toString());
         } catch (error) {
             console.log("countCoins error:", error)
@@ -44,17 +39,17 @@ const Backpack = () => {
         )
     }, [localStorage.getItem("backpack"),])
 
-    useEffect(() => {
-        let backpack = getBackpack()
-   
-    
-    }, [localStorage.getItem("backpack"),])
-
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
     return (<>
-        <button className={styles.button}>
+        <button  className={styles.button} onClick={() => setShowModal(true)}>
             {totalCost && `$ ${roundingNumericValues(totalCost)}`}
         </button>
+        {
+                showModal && <RemoveCoinModal  isOpen={showModal} onClose={handleCloseModal} />
+            }
     </>)
 }
 export default Backpack

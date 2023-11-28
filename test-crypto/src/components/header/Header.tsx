@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import MoveToTableButton from '../moveToTableButton/MoveToTableButton';
 import styles from './Header.module.scss';
-import { getTopRankedCoins } from '../../api/Api';
+import { getTopRankedCoins, getAllCoins } from '../../api/Api';
 import { ICurrency } from '../../types/ApiTypes';
 import { formatPriceWithSuffix } from '../../utils/formatNumericValue';
 import TopRankedCurrency from '../topRankedCurrency/TopRankedCurrency';
 import Backpack from '../backpack/Backpack';
+import BackpackCoinsContext from '../../context/backpackCoinContext';
+import { useContext } from 'react';
+import { RoutesPath } from '../../types/RoutesTypes';
 
 interface TopCoinProps {
   id: string;
@@ -15,6 +18,10 @@ interface TopCoinProps {
 }
 
 function Header() {
+
+  const context = useContext(BackpackCoinsContext)
+  const { updateFreshCoins } = context!;
+
   const [topCurrencyData, setTopCurrencyData] = useState<ICurrency[]>()
   const topLimit = 3
 
@@ -27,9 +34,19 @@ function Header() {
       console.log("GetTopCoin error:", error)
     }
   }
+  async function getNewCoins() {
+    try {
+      const allCoins = await getAllCoins()
+      updateFreshCoins(allCoins)
+
+    } catch (error) {
+      console.log("GetTopCoin error:", error)
+    }
+  }
 
   useEffect(() => {
     getTopCoins(topLimit)
+    getNewCoins();
   }, [])
 
   const prepareTopRankedCurrency = (coin: ICurrency): TopCoinProps => {
@@ -44,9 +61,7 @@ function Header() {
   return (
     <div className={styles.header}>
       <header className={styles.navbar}>
-        <NavLink to={'/'}>
-          {/* <img className={styles.company_logo} src={logo} alt='' /> */}
-        </NavLink>
+        <MoveToTableButton />
         <div className={styles.navbar_center}>
           {topCurrencyData && topCurrencyData.map((item) => {
             return <TopRankedCurrency

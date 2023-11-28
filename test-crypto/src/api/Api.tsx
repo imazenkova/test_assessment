@@ -27,7 +27,7 @@ export const getEntityDetails = async (id: string): Promise<ICurrency> => {
         const response = await api.get(`${ApiEndpoint.ASSETS}/${id}`, {});
 
         return response.data.data;
-        
+
     } catch (error) {
         console.error('Api getEntityDetails error :', error);
         throw error;
@@ -62,6 +62,18 @@ export const getTopRankedCoins = async (top: number): Promise<ICurrency[]> => {
         const topCurrencies = currencies.slice(0, top);
 
         return topCurrencies;
+
+    } catch (error) {
+        console.error('Api getPaginationCryptoAssets error :', error);
+        throw error;
+    }
+};
+
+export const getAllCoins = async (): Promise<ICurrency[]> => {
+    try {
+
+        const response = await api.get(ApiEndpoint.ASSETS, {});
+        return response.data.data;
 
     } catch (error) {
         console.error('Api getPaginationCryptoAssets error :', error);
