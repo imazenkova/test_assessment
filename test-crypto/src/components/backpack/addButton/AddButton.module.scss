@@ -1,3 +1,5 @@
+@import "../../../utils/variables.scss";
+
 .container {
     display: flex;
     flex-direction: row;
@@ -5,19 +7,31 @@
     align-items: center;
 
     .plus_button {
-        color: rgb(53, 162, 235);
+        color: $mainColor;
         border: none;
         border-radius: 50%;
         cursor: pointer;
         font-weight: bold;
-        width: 36px;
-        font-size: 25px;
-        height: 36px;
+        width: 2rem; 
+        font-size: 1.5rem; 
+        height: 2rem; 
         border-radius: 50%;
 
         &:hover {
             background-color: rgb(53, 162, 235);
-            color: white
+            color: white;
+        }
+
+        @media (max-width: 480px) { 
+            width: 1.5rem;
+            font-size: 1rem;
+            height: 1.5rem;
+        }
+
+        @media (max-width: 320px) { 
+            width: 1.2rem;
+            font-size: 0.8rem;
+            height: 1.2rem;
         }
     }
 }

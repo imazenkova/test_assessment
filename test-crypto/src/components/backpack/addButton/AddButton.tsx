@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import style from "./AddButton.module.scss";
 import AddToBackpack from '../addCoinModal/AddToBackpackModal';
 
@@ -8,10 +7,8 @@ interface AddButtonProps {
     cost: number;
 }
 
-
 const AddButton: React.FC<AddButtonProps> = ({ coinId, cost }) => {
-
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const openModal = () => {
         setIsOpen(true);
@@ -22,13 +19,10 @@ const AddButton: React.FC<AddButtonProps> = ({ coinId, cost }) => {
         window.location.reload();
     };
 
- 
     return (
         <div className={style.container}>
-            <button className={style.plus_button} onClick={()=>openModal()}>+</button>
-            
-               <AddToBackpack coinId={coinId} cost={cost} isOpen={isOpen} closeModal={closeModal} />
-            
+            <button className={style.plus_button} onClick={openModal}>+</button>
+            <AddToBackpack coinId={coinId} cost={cost} isOpen={isOpen} closeModal={closeModal} />
         </div>
     );
 };
