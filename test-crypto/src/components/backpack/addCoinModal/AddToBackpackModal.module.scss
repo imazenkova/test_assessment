@@ -1,3 +1,4 @@
+@import "../../../utils/variables.scss";
 
 .button_add_container {
   display: flex;
@@ -20,21 +21,11 @@
   }
 }
 
-.emptyInput {
+.empty_input {
   color: red;
 }
 
-.button_close_container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.cross_icon {
-  color: #fff;
-  font-size: 20px;
-}
-
-.quintity_container {
+.quantity_container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -48,7 +39,6 @@
     border-radius: 3px;
   }
 }
-
 
 .notification {
   background-color: green;
