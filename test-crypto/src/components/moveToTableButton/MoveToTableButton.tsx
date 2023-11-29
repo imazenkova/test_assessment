@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RoutesPath } from '../../../types/RoutesTypes';
+import { RoutesPath } from '../../types/RoutesTypes';
 import styles from "./MoveToTableButton.module.scss";
+import Button from '../sharedComponents/button/Button';
 
 const MoveToTableButton: React.FC = ( ) => {
 
@@ -11,9 +12,8 @@ const MoveToTableButton: React.FC = ( ) => {
   };
 
   return (
-        <div className={styles.container}>
-          <button onClick={handleBackClick}>Move to Table</button>
-        </div>
+    <Button onClick={handleBackClick}>Move to Table</Button>
+        
   );
 };
 

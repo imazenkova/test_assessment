@@ -2,36 +2,37 @@
 
 .container {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
+}
 
-    .plus_button {
-        color: $mainColor;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        font-weight: bold;
-        width: 2rem; 
-        font-size: 1.5rem; 
-        height: 2rem; 
-        border-radius: 50%;
+.plus_button {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background-color: #eaeaea;
+    color: $mainColor;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: $mainColor;
 
-        &:hover {
-            background-color:$mainColor;
-            color: white;
-        }
+    &:hover {
+        background-color: $mainColor;
+        color: white;
+    }
+}
 
-        @media (max-width: 480px) { 
-            width: 1.5rem;
-            font-size: 1rem;
-            height: 1.5rem;
-        }
+// Адаптивные стили
 
-        @media (max-width: 320px) { 
-            width: 1.2rem;
-            font-size: 0.8rem;
-            height: 1.2rem;
-        }
+@media (max-width: 480px) {
+    button {
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 1rem;
     }
 }

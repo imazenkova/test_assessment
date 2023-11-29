@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import MoveToTableButton from '../sharedComponents/moveToTableButton/MoveToTableButton';
+import MoveToTableButton from '../moveToTableButton/MoveToTableButton';
 import styles from './Header.module.scss';
 import { getTopRankedCoins, getAllCoins } from '../../api/Api';
 import { ICurrency } from '../../types/ApiTypes';

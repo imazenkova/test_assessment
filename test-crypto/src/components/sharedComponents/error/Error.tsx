@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { RoutesPath } from '../../../types/RoutesTypes';
 import errorImg from "./404-error.png"
 import styles from "./Error.module.scss"
-import MoveToTableButton from '../moveToTableButton/MoveToTableButton';
+import MoveToTableButton from '../../moveToTableButton/MoveToTableButton';
 interface ErrorProps {
   message: string;
 }
