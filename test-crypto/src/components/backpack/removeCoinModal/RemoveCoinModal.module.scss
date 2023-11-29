@@ -10,12 +10,6 @@
     justify-content: center;
     text-align: center;
 
-    h2 {
-      font-size: 24px;
-      margin-top: 0;
-      margin-bottom: 10px;
-    }
-
     p {
       color: gray;
       text-align: center;
@@ -25,6 +19,7 @@
         text-align: center;
       }
     }
+
     button {
       display: block;
       width: 30%;
@@ -63,36 +58,5 @@
       &:last-child {
         margin-bottom: 0;
       }
-    }
-
-    .button_close_container {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .round_button {
-      position: relative;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color: #333;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 5px;
-    }
-
-    .cross_icon {
-      color: #fff;
-      font-size: 20px;
-    }
-
-    .quintity_container {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
     }
   }
