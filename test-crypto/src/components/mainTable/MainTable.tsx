@@ -8,6 +8,7 @@ import SearchBar from '../searchBar/SearchBar';
 import SortableColumn from '../sortableColumn/SortableColumn';
 import TableRow from '../tableRow/TableRow';
 import TableStyles from './MainTable.module.scss';
+import Loader from '../loader/Loader';
 
 const MainTable = () => {
     const [cryptoAssets, setCryptoAssets] = useState<ICurrency[]>([]);
@@ -16,6 +17,7 @@ const MainTable = () => {
     const [searchInput, setSearchInput] = useState('');
     const [sortColumn, setSortColumn] = useState<string>('');
     const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrderEnum.ASC);
+    const [isLoading, setIsLoading] = useState(true);
 
     const pageNumbers = Array.from({ length: totalPagesCount }, (item, i) => i + 1);
     const pageSize = 15;
@@ -39,6 +41,7 @@ const MainTable = () => {
                 const totalCount = offset + data.length;
                 setTotalPagesCount(totalCount);
                 setCryptoAssets(dataWithoutZeroValues);
+                setIsLoading(false)
             } catch (error) {
                 console.error('Api Error:', error);
             }
@@ -62,6 +65,7 @@ const MainTable = () => {
 
     return (
         <>
+         {isLoading ? <Loader message="Loading..." /> : 
             <div>
                 <SearchBar onSearchInput={handleSearch} />
                 <table className={TableStyles.main_table}>
@@ -114,7 +118,7 @@ const MainTable = () => {
                     pageNumbers={pageNumbers}
                     onPageChange={handlePageChange}
                 />
-            </div >
+            </div >}
         </>
     );
 };
