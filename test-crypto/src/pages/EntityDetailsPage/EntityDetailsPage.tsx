@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import AddButton from "../../components/addButton/AddButton";
-import PriceChart from "../../components/chart/priceChart/PriceChart";
+import AddButton from "../../components/backpack/addButton/AddButton";
+import PriceChart from "../../components/cryptoEntity/chart/priceChart/PriceChart";
 import EntityInfo from "../../components/cryptoEntity/entityInfo/EntityInfo";
 import Loader from "../../components/sharedComponents/loader/Loader";
 import { ICurrency, IHistory, Interval } from "../../types/ApiTypes";

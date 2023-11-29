@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ICoin } from "../../context/backpackCoinContext"
+import { ICoin } from "../../../context/backpackCoinContext"
 import { useContext } from "react";
-import BackpackCoinsContext from "../../context/backpackCoinContext";
+import BackpackCoinsContext from "../../../context/backpackCoinContext";
 import styles from "./Backpack.module.scss"
-import { roundingNumericValues } from "../../utils/formatNumericValue";
+import { roundingNumericValues } from "../../../utils/formatNumericValue";
 import RemoveCoinModal from "../removeCoinModal/RemoveCoinModal";
 
 interface ICoinSumMap {

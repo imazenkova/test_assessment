@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import styles from './AddToBackpackModal.module.scss';
-import BackpackCoinsContext from '../../context/backpackCoinContext';
-import { roundingNumericValues } from '../../utils/formatNumericValue';
-import Modal from '../sharedComponents/modal/Modal';
+import BackpackCoinsContext from '../../../context/backpackCoinContext';
+import { roundingNumericValues } from '../../../utils/formatNumericValue';
+import Modal from '../../sharedComponents/modal/Modal';
 
 interface AddToBackpackProps {
     coinId: string;

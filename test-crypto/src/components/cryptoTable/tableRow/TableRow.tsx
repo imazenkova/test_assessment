@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ICurrency } from '../../../types/ApiTypes';
 import { formatPriceWithSuffix, roundingNumericValues } from '../../../utils/formatNumericValue';
 import { RoutesPath } from '../../../types/RoutesTypes';
-import AddButton from '../../addButton/AddButton';
+import AddButton from '../../backpack/addButton/AddButton';
 
 interface TableRowProps {
     crypto: ICurrency;

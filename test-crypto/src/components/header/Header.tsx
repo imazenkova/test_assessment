@@ -4,8 +4,8 @@ import styles from './Header.module.scss';
 import { getTopRankedCoins, getAllCoins } from '../../api/Api';
 import { ICurrency } from '../../types/ApiTypes';
 import { formatPriceWithSuffix } from '../../utils/formatNumericValue';
-import TopRankedCurrency from '../chart/topRankedCurrency/TopRankedCurrency';
-import Backpack from '../backpack/Backpack';
+import TopRankedCurrency from '../cryptoEntity/chart/topRankedCurrency/TopRankedCurrency';
+import Backpack from '../backpack/backpackButton/Backpack';
 import BackpackCoinsContext from '../../context/backpackCoinContext';
 import { useContext } from 'react';
 

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import BackpackCoinsContext, { ICoin } from '../../context/backpackCoinContext';
+import BackpackCoinsContext, { ICoin } from '../../../context/backpackCoinContext';
 import styles from './RemoveCoinModal.module.scss';
-import { roundingNumericValues } from '../../utils/formatNumericValue';
+import { roundingNumericValues } from '../../../utils/formatNumericValue';
 interface RemoveCoinModalProps {
     isOpen: boolean;
     onClose: () => void;

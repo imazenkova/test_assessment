@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IHistory, Interval } from '../../../types/ApiTypes';
+import { IHistory, Interval } from '../../../../types/ApiTypes';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,7 +12,7 @@ import {
   Legend
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { customColumnNames } from '../../../pages/MainTablePage/ColumnNames';
+import { customColumnNames } from '../../../../pages/MainTablePage/ColumnNames';
 
 ChartJS.register(
   CategoryScale,

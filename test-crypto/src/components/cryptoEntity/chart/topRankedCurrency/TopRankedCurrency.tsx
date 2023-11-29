@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { formatPriceWithSuffix } from "../../../utils/formatNumericValue";
-import { RoutesPath } from "../../../types/RoutesTypes";
+import { formatPriceWithSuffix } from "../../../../utils/formatNumericValue";
+import { RoutesPath } from "../../../../types/RoutesTypes";
 import styles from './TopRankedCurrency.module.scss'
 import { useNavigate } from "react-router-dom";
 
