@@ -1,31 +1,10 @@
-// AddToBackpack.module.scss
-
-.modal {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-
-  &.open {
-    opacity: 1;
-    visibility: visible;
-  }
 
   .content {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     max-width: 400px;
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -117,4 +96,3 @@
       align-items: center;
     }
   }
-}
