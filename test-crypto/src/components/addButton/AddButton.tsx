@@ -10,18 +10,25 @@ interface AddButtonProps {
 
 
 const AddButton: React.FC<AddButtonProps> = ({ coinId, cost }) => {
-    const [showModal, setShowModal] = useState<boolean>(false)
-    
-    const handleCloseModal = () => {
-        setShowModal(false);
+
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+
+    const openModal = () => {
+        setIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
         window.location.reload();
     };
+
+ 
     return (
         <div className={style.container}>
-            <button className={style.plus_button} onClick={() => setShowModal(true)}>+</button>
-            {
-                showModal && <AddToBackpack coinId={coinId} cost={cost} isOpen={showModal} onClose={handleCloseModal} />
-            }
+            <button className={style.plus_button} onClick={()=>openModal()}>+</button>
+            
+               <AddToBackpack coinId={coinId} cost={cost} isOpen={isOpen} closeModal={closeModal} />
+            
         </div>
     );
 };

@@ -2,20 +2,20 @@ import React, { useState, useContext } from 'react';
 import styles from './AddToBackpackModal.module.scss';
 import BackpackCoinsContext from '../../context/backpackCoinContext';
 import { roundingNumericValues } from '../../utils/formatNumericValue';
-import { customColumnNames } from '../../pages/MainTablePage/ColumnNames';
+import Modal from '../modal/Modal';
 
 interface AddToBackpackProps {
     coinId: string;
     cost: number;
     isOpen: boolean;
-    onClose: () => void;
+    closeModal: () => void;
 }
 
 const AddToBackpack: React.FC<AddToBackpackProps> = ({
     coinId,
     cost,
     isOpen,
-    onClose,
+    closeModal,
 }) => {
     const context = useContext(BackpackCoinsContext)
     const { setBackpack } = context!;
@@ -24,12 +24,6 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
     const [showEmptyInput, setShowEmptyInput] = useState(false);
     const [showSuccNotification, setShowSuccNotification] = useState(false);
 
-
-    const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        if (event.target === event.currentTarget) {
-            onClose();
-        }
-    };
 
     const handleAdd = () => {
         try {
@@ -42,17 +36,14 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
     };
 
     return (
-        <div className={`${styles.modal} ${isOpen ? styles.open : ''}`} onClick={handleOverlayClick}>
+        <Modal isOpen={isOpen} onClose={closeModal}>
+
             {showSuccNotification ? (
+         
                 <div className={styles.notification}>
                     <p> ✓ Coins added to backpack!</p>
                 </div>
-            ) : (<div className={styles.content}>
-                <div className={styles.button_close_container}>
-                    <button className={styles.round_button} onClick={onClose}>
-                        <span className={styles.cross_icon} >x</span>
-                    </button>
-                </div>
+            ) : (<>
                 <h2>Add to Backpack</h2>
                 <p>Coin: {coinId}</p>
                 <p>Cost: {roundingNumericValues(cost)}</p>
@@ -68,9 +59,8 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
 
                 </div>
 
-            </div>)}
-
-        </div>
+            </>)}
+        </Modal>
     );
 };
 
