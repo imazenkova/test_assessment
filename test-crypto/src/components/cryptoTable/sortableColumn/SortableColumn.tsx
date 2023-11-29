@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { SortOrder,SortOrderEnum } from '../../types/SortableTypes';
-import { ICurrency } from '../../types/ApiTypes';
-import { customColumnNames } from '../../pages/MainTablePage/ColumnNames';
+import { SortOrder,SortOrderEnum } from '../../../types/SortableTypes';
+import { ICurrency } from '../../../types/ApiTypes';
+import { customColumnNames } from '../../../pages/MainTablePage/ColumnNames';
 
 type SortableColumnProps = {
     cryptoAssets:ICurrency[];

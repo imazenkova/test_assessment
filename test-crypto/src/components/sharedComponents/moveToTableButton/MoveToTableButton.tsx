@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RoutesPath } from '../../types/RoutesTypes';
+import { RoutesPath } from '../../../types/RoutesTypes';
 import styles from "./MoveToTableButton.module.scss";
 
 const MoveToTableButton: React.FC = ( ) => {

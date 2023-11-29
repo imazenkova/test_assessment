@@ -1,8 +1,8 @@
 import React from "react";
-import style from "../../pages/EntityDetailsPage/EntityDetailsPage.module.scss";
-import { ICurrency } from "../../types/ApiTypes";
-import { formatPriceWithSuffix, roundingNumericValues } from "../../utils/formatNumericValue";
-import { customColumnNames } from "../../pages/MainTablePage/ColumnNames";
+import style from "../../../pages/EntityDetailsPage/EntityDetailsPage.module.scss";
+import { ICurrency } from "../../../types/ApiTypes";
+import { formatPriceWithSuffix, roundingNumericValues } from "../../../utils/formatNumericValue";
+import { customColumnNames } from "../../../pages/MainTablePage/ColumnNames";
 
 interface EntityInfoProps {
     entityDetails: ICurrency;

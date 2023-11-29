@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import MoveToTableButton from '../moveToTableButton/MoveToTableButton';
+import MoveToTableButton from '../sharedComponents/moveToTableButton/MoveToTableButton';
 import styles from './Header.module.scss';
 import { getTopRankedCoins, getAllCoins } from '../../api/Api';
 import { ICurrency } from '../../types/ApiTypes';
 import { formatPriceWithSuffix } from '../../utils/formatNumericValue';
-import TopRankedCurrency from '../topRankedCurrency/TopRankedCurrency';
+import TopRankedCurrency from '../chart/topRankedCurrency/TopRankedCurrency';
 import Backpack from '../backpack/Backpack';
 import BackpackCoinsContext from '../../context/backpackCoinContext';
 import { useContext } from 'react';

@@ -52,7 +52,7 @@ function App() {
 
   return (
     <BackpackCoinsContext.Provider value={{ freshCoins, updateFreshCoins, getBackpack, setBackpack }}>
-      <div className="App">
+     <div className='wrapper'>
         <Header />
         <AppRoutes />
       </div>

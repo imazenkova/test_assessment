@@ -1,81 +1,52 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
-import { getCryptoHistory, getEntityDetails } from "../../api/Api";
+import { useNavigate, useParams } from "react-router-dom";
 import AddButton from "../../components/addButton/AddButton";
-import EntityInfo from "../../components/entityInfo/EntityInfo";
-import Loader from "../../components/loader/Loader";
-import PriceChart from "../../components/priceChart/PriceChart";
+import PriceChart from "../../components/chart/priceChart/PriceChart";
+import EntityInfo from "../../components/cryptoEntity/entityInfo/EntityInfo";
+import Loader from "../../components/sharedComponents/loader/Loader";
 import { ICurrency, IHistory, Interval } from "../../types/ApiTypes";
 import { RoutesPath } from "../../types/RoutesTypes";
 import style from "./EntityDetailsPage.module.scss";
+import { fetchDetailsData, fetchHistoryData } from "./api";
 
 const EntityDetailsPage = () => {
     const { id } = useParams();
-    const navigate = useNavigate()
-    const [entityDetails, setEntityDetails] = useState<ICurrency>();
+    const navigate = useNavigate();
+    const [entityDetails, setEntityDetails] = useState<ICurrency | null>(null);
     const [historyData, setHistoryData] = useState<IHistory[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [apiError, setApiError] = useState(false);
-    const [selectedInterval, setSelectedInterval] = useState<Interval>('h1');
-
-    async function fetchHistoryData() {
-        try {
-
-            setIsLoading(true)
-
-            const currentDate = new Date();
-            const currentTimestamp = currentDate.getTime();
-
-            const thirtyDays = 30 * 24 * 60 * 60 * 1000;
-            const oneMonthAgoTimestamp = currentTimestamp - thirtyDays
-
-            if (!id) return
-
-            const data = await getCryptoHistory(id, selectedInterval, oneMonthAgoTimestamp, currentTimestamp);
-
-            setHistoryData(data);
-            setIsLoading(false)
-        } catch (error) {
-            setApiError(true)
-            console.error('Fetch getCryptoHistory Error:', error);
-            setIsLoading(false)
-
-        }
-    }
-    async function fetchDetailsData() {
-        try {
-            setIsLoading(true)
-            if (!id) return
-
-            const data = await getEntityDetails(id);
-            setEntityDetails(data);
-            setIsLoading(false)
-        } catch (error) {
-            setApiError(true)
-            console.error('Fetch getEntityDetails Error:', error);
-            setIsLoading(false)
-
-        }
-    }
+    const [selectedInterval, setSelectedInterval] = useState<Interval>("h1");
 
     useEffect(() => {
-        fetchHistoryData();
-        fetchDetailsData();
-    }, []);
+        const fetchData = async () => {
+            try {
+                setIsLoading(true);
 
-    useEffect(() => {
-        fetchDetailsData();
-    }, [id]);
+                const details = await fetchDetailsData(id);
+                if (details) {
+                    setEntityDetails(details);
 
-    useEffect(() => {
-        fetchHistoryData();
+                    const history = await fetchHistoryData(id, selectedInterval);
+                    setHistoryData(history);
+                }
+
+                setIsLoading(false);
+            } catch (error) {
+                setApiError(true);
+                console.error("Fetch Data Error:", error);
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
     }, [id, selectedInterval]);
 
     useEffect(() => {
         if (apiError) {
-            navigate(`${RoutesPath.ENTITY_DETAILS}/${id}/error`)
+            navigate(`${RoutesPath.ENTITY_DETAILS}/${id}/error`);
         }
-    }, [apiError, id, navigate])
+    }, [apiError, id, navigate]);
 
     const handleIntervalChange = (interval: Interval) => {
         setSelectedInterval(interval);
@@ -83,32 +54,39 @@ const EntityDetailsPage = () => {
 
     return (
         <>
-            {isLoading ? <Loader message="Loading..." /> : apiError ? (<></>) :
-                (<div>
+            {isLoading ? (
+                <Loader message="Loading..." />
+            ) : apiError ? (
+                <></>
+            ) : (
+                <div>
                     <div className={style.wrapper}>
                         <div className={style.container}>
                             <div className={style.info_block}>
-                                <AddButton coinId={id!} cost={parseFloat(entityDetails!.priceUsd)} />
-                                <EntityInfo entityDetails={entityDetails!} />
+                                {entityDetails && (
+                                    <>
+                                        <AddButton coinId={id!} cost={parseFloat(entityDetails.priceUsd)} />
+                                        <EntityInfo entityDetails={entityDetails} />
+                                    </>
+                                )}
                             </div>
                             <div className={style.schedule_block}>
                                 <div className={style.intervalButtons}>
                                     <button
-                                        className={`${style.intervalButton} ${selectedInterval === 'h1' && style.selected
-                                            }`}
-                                        onClick={() => handleIntervalChange('h1')}
+                                        className={`${style.intervalButton} ${selectedInterval === "h1" && style.selected}`}
+                                        onClick={() => handleIntervalChange("h1")}
                                     >
                                         1 Hour
                                     </button>
                                     <button
-                                        className={`${style.intervalButton} ${selectedInterval === 'h12' && style.selected}`}
-                                        onClick={() => handleIntervalChange('h12')}
+                                        className={`${style.intervalButton} ${selectedInterval === "h12" && style.selected}`}
+                                        onClick={() => handleIntervalChange("h12")}
                                     >
                                         12 Hours
                                     </button>
                                     <button
-                                        className={`${style.intervalButton} ${selectedInterval === 'd1' && style.selected}`}
-                                        onClick={() => handleIntervalChange('d1')}
+                                        className={`${style.intervalButton} ${selectedInterval === "d1" && style.selected}`}
+                                        onClick={() => handleIntervalChange("d1")}
                                     >
                                         1 Day
                                     </button>
@@ -117,9 +95,10 @@ const EntityDetailsPage = () => {
                             </div>
                         </div>
                     </div>
-                </div>)}
+                </div>
+            )}
         </>
-    )
+    );
 };
 
 export default EntityDetailsPage;

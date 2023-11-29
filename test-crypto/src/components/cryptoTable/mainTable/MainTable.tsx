@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { getPaginationCryptoAssets } from '../../api/Api';
-import { customColumnNames } from '../../pages/MainTablePage/ColumnNames';
-import { ICurrency } from '../../types/ApiTypes';
-import { SortOrder, SortOrderEnum } from '../../types/SortableTypes';
-import Pagination from '../pagination/Pagination';
-import SearchBar from '../searchBar/SearchBar';
+import { getPaginationCryptoAssets } from '../../../api/Api';
+import { customColumnNames } from '../../../pages/MainTablePage/ColumnNames';
+import { ICurrency } from '../../../types/ApiTypes';
+import { SortOrder, SortOrderEnum } from '../../../types/SortableTypes';
+import Pagination from '../../sharedComponents/pagination/Pagination';
+import SearchBar from '../../sharedComponents/searchBar/SearchBar';
 import SortableColumn from '../sortableColumn/SortableColumn';
 import TableRow from '../tableRow/TableRow';
 import TableStyles from './MainTable.module.scss';
-import Loader from '../loader/Loader';
-import Header from '../header/Header';
+import Loader from '../../sharedComponents/loader/Loader';
+import Header from '../../header/Header';
 
 const MainTable = () => {
     const [cryptoAssets, setCryptoAssets] = useState<ICurrency[]>([]);
@@ -68,7 +68,7 @@ const MainTable = () => {
     return (
         <>
             {isLoading ? <Loader message="Loading..." /> :
-                <div>
+                <div className={TableStyles.wrapper}>
                     <SearchBar onSearchInput={handleSearch} />
                     <table className={TableStyles.main_table}>
                         <thead>
