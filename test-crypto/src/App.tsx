@@ -25,7 +25,6 @@ function App() {
     let result: ICoin[] = []
 
     if (backpack) {
-      debugger
       backpack = JSON.parse(backpack)
 
       if (Array.isArray(backpack)) {

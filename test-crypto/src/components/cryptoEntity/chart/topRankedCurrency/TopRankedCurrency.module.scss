@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1.875rem;
+  // gap: 1.875rem;
   margin: 0 3.125rem;
   font-size: 1.25rem;
   text-decoration: none;
@@ -22,11 +22,10 @@
 @media (max-width: 768px) {
   .currencyNavbar {
     padding-top: 0.2rem;
-    padding-bottom: 0.2rem;;
+;
     flex-direction: column;
-    gap: 0.7rem;
     margin: 0;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.5rem;
   }
 }

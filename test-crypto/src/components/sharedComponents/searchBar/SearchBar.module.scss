@@ -7,10 +7,7 @@
     border-radius: 4px;
     width: 15%;
     @media (max-width: 768px) {
-      /* Стили для мобильных устройств */
       width: 100%;
-      border-color: red
-;
     }
   }
 }

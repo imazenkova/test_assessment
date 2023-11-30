@@ -71,21 +71,21 @@ const EntityDetailsPage = () => {
                                 )}
                             </div>
                             <div className={style.schedule_block}>
-                                <div className={style.intervalButtons}>
+                                <div className={style.interval_buttons}>
                                     <button
-                                        className={`${style.intervalButton} ${selectedInterval === "h1" && style.selected}`}
+                                        className={`${style.interval_button} ${selectedInterval === "h1" && style.selected}`}
                                         onClick={() => handleIntervalChange("h1")}
                                     >
                                         1 Hour
                                     </button>
                                     <button
-                                        className={`${style.intervalButton} ${selectedInterval === "h12" && style.selected}`}
+                                        className={`${style.interval_button} ${selectedInterval === "h12" && style.selected}`}
                                         onClick={() => handleIntervalChange("h12")}
                                     >
                                         12 Hours
                                     </button>
                                     <button
-                                        className={`${style.intervalButton} ${selectedInterval === "d1" && style.selected}`}
+                                        className={`${style.interval_button} ${selectedInterval === "d1" && style.selected}`}
                                         onClick={() => handleIntervalChange("d1")}
                                     >
                                         1 Day

@@ -4,7 +4,7 @@ import { RoutesPath } from '../../types/RoutesTypes';
 import styles from "./MoveToTableButton.module.scss";
 import Button from '../sharedComponents/button/Button';
 
-const MoveToTableButton: React.FC = ( ) => {
+const MoveToTableButton: React.FC = () => {
 
   const navigate = useNavigate()
   const handleBackClick = () => {
@@ -12,8 +12,8 @@ const MoveToTableButton: React.FC = ( ) => {
   };
 
   return (
-    <Button onClick={handleBackClick}>Move to Table</Button>
-        
+    <Button onClick={handleBackClick}> Table</Button>
+
   );
 };
 

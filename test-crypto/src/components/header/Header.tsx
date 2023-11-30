@@ -41,7 +41,6 @@ function Header() {
   }
   async function getChanges() {
     try {
-      debugger
       const allCoins = await getAllCoins()
       updateFreshCoins(allCoins)
       const backpackData = getBackpack()
@@ -69,7 +68,7 @@ function Header() {
           percent: percentString,
           difference: differenceString
         })
-      }else{
+      } else {
         setCostChange({
           percent: "+0.00",
           difference: "+0.00%"
@@ -98,7 +97,8 @@ function Header() {
   return (
     <div className={styles.header}>
       <header className={styles.navbar}>
-        <MoveToTableButton />
+        <div><MoveToTableButton /></div>
+
         <div className={styles.navbar_center}>
           {topCurrencyData && topCurrencyData.map((item) => {
             return <TopRankedCurrency
@@ -107,10 +107,9 @@ function Header() {
         </div>
         <div className={styles.navbar_right}>
           <Backpack />
-
         </div>
-        <div> 
-          {costChange && <><p>{costChange.difference}</p> <p> {`(${costChange.percent})`}</p></>}
+        <div>
+          {costChange && <div><p>{costChange.difference}</p> <p> {`(${costChange.percent})`}</p></div>}
         </div>
       </header>
     </div>
