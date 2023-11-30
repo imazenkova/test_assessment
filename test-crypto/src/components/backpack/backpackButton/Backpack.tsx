@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import BackpackCoinsContext, { ICoin } from "../../../context/backpackCoinContext";
-import { roundingNumericValues } from "../../../utils/formatNumericValue";
+import { formatPriceWithSuffix } from "../../../utils/formatNumericValue";
 import RemoveCoinModal from "../removeCoinModal/RemoveCoinModal";
 import Button from "../../sharedComponents/button/Button";
 
@@ -42,7 +42,7 @@ const Backpack = () => {
     return (
         <>
             <Button onClick={() => setShowModal(true)}>
-                {totalCost && `$ ${roundingNumericValues(totalCost)}`}
+                {totalCost && `$ ${formatPriceWithSuffix(totalCost)}`}
             </Button>
             {showModal && (
                 <RemoveCoinModal isOpen={showModal} onClose={handleCloseModal} />

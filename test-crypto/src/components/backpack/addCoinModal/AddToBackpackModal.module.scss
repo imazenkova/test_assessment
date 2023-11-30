@@ -7,7 +7,7 @@
   button {
     display: block;
     width: 40%;
-
+    padding: 0.5em;
     margin-top: 10px;
     background-color: #007bff;
     color: white;
@@ -15,14 +15,15 @@
     border-radius: 3px;
     text-align: center;
     cursor: pointer;
-  
+
     &:hover {
       background-color: #0056b3;
     }
-    @media only screen and (max-width: 768px) {
 
+    @media only screen and (max-width: 768px) {
+      padding: 0em;
       width: 40%;
-    
+
     }
   }
 }
@@ -50,6 +51,7 @@
   background-color: green;
   color: white;
   display: flex;
+  width: 90%;
   align-items: center;
   text-align: center;
   justify-content: center;
