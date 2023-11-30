@@ -1,4 +1,4 @@
-import { useTopCoins } from '../../hooks/hooks';
+import { useTopCoins } from '../../hooks/headerHooks';
 import { ICurrency } from '../../types/ApiTypes';
 import { formatPriceWithSuffix } from '../../utils/formatNumericValue';
 import Backpack from '../backpack/backpackButton/Backpack';

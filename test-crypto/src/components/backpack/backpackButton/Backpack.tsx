@@ -1,32 +1,24 @@
-import { useContext, useEffect, useState } from "react";
-import BackpackCoinsContext from "../../../context/backpackCoinContext";
+import { useState } from "react";
+import { useBackpackCost } from "../../../hooks/backpackHook";
 import { formatPriceWithSuffix } from "../../../utils/formatNumericValue";
 import Button from "../../sharedComponents/button/Button";
 import RemoveCoinModal from "../removeCoinModal/RemoveCoinModal";
 
 const Backpack = () => {
-    const [backpackCost, setBackpacklCost] = useState<number>(0);
-    const [showModal, setShowModal] = useState<boolean>(false);
-
-    const context = useContext(BackpackCoinsContext);
-    const { totalCost } = context!;
+    const [showModal, setShowModal] = useState(false);
+    const backpackCost = useBackpackCost();
 
     const handleCloseModal = () => {
         setShowModal(false);
     };
 
-    useEffect(() => {
-        const backpackCost = localStorage.getItem("totalCost")
-        if (backpackCost) {
-            setBackpacklCost(parseFloat(backpackCost))
-        } else {
-            setBackpacklCost(0)
-        }
-    }, [totalCost])
+    const handleClick = () => {
+        setShowModal(true);
+    };
 
     return (
         <>
-            <Button onClick={() => setShowModal(true)}>
+            <Button onClick={handleClick}>
                 {backpackCost && `$ ${formatPriceWithSuffix(backpackCost)}`}
             </Button>
             {showModal && (

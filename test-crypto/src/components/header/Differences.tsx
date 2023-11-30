@@ -1,4 +1,4 @@
-import { useGetChanges } from '../../hooks/hooks';
+import { useGetChanges } from '../../hooks/headerHooks';
 
 const DifferencePercent = () => {
   const { difference, percent } = useGetChanges();
