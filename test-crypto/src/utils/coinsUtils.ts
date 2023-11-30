@@ -1,4 +1,6 @@
 import {ICoin} from "../context/backpackCoinContext"
+import { getTopRankedCoins } from "../api/Api";
+import { ICurrency } from "../types/ApiTypes";
 
 export async function countCoins(backpack: ICoin[]): Promise<number> {
     try {
@@ -18,6 +20,17 @@ export async function removeCoin(coinId: string, backpackCoins: ICoin[]): Promis
       return newBackpack;
     } catch (error) {
       console.log("removeCoin Error: ", error);
+      throw error;
+    }
+  }
+
+
+  export async function getTopCoins(limit: number):Promise<ICurrency[]> {
+    try {
+      const topCoins = await getTopRankedCoins(limit);
+      return topCoins
+    } catch (error) {
+      console.log("GetTopCoin error:", error);
       throw error;
     }
   }

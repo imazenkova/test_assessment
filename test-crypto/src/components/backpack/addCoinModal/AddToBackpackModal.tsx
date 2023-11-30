@@ -20,7 +20,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
     const context = useContext(BackpackCoinsContext);
     const { setOneCoinToBackpack } = context!;
 
-    const [quantity, setQuantity] = useState<number | undefined>();
+    const [quantity, setQuantity] = useState<number>(1);
     const [showEmptyInput, setShowEmptyInput] = useState(false);
     const [showSuccNotification, setShowSuccNotification] = useState(false);
 
@@ -35,9 +35,14 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
             console.log("UpdateCoinQuantity Error: ", error);
         }
     };
+    const handleClose = () => {
+        closeModal();
+        setShowSuccNotification(false);
+        setQuantity(1)
 
+    };
     return (
-        <Modal isOpen={isOpen} onClose={closeModal}>
+        <Modal isOpen={isOpen} onClose={handleClose}>
             {showSuccNotification ? (
                 <div className={styles.notification}>
                     <p>✓ Coins added to backpack!</p>
@@ -50,7 +55,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
                     <div className={styles.quantity_container}>
                         <input
                             type="number"
-                            min={0}
+                            min="1"
                             max="1000000"
                             value={quantity}
                             onChange={(e) => {

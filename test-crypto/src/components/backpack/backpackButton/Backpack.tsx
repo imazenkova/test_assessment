@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import BackpackCoinsContext, { ICoin } from "../../../context/backpackCoinContext";
+import { useContext, useEffect, useState } from "react";
+import BackpackCoinsContext from "../../../context/backpackCoinContext";
 import { formatPriceWithSuffix } from "../../../utils/formatNumericValue";
-import RemoveCoinModal from "../removeCoinModal/RemoveCoinModal";
 import Button from "../../sharedComponents/button/Button";
+import RemoveCoinModal from "../removeCoinModal/RemoveCoinModal";
 
 const Backpack = () => {
     const [backpackCost, setBackpacklCost] = useState<number>(0);
