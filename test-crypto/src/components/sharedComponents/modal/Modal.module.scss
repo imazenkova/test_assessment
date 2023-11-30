@@ -1,44 +1,51 @@
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-  
-    &.open {
-      display: flex;
-    }
-  
-    .modal_content {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 4px;
-      position: relative;
-      max-width: 400px;
-      width: 100%;
-  
-      .close_button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        border: none;
-        background: none;
-        font-size: 20px;
-        
-        cursor: pointer;
-        &:hover {
-          color: rgb(155, 150, 150);
-        }
-      }
-    }
-    @media (max-width: 768px) {
-      .modal_content {
-        max-width: 70%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+
+  &.open {
+    display: flex;
+  }
+
+  .modal_content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+
+    .close_button {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      border: none;
+      background: none;
+      font-size: 20px;
+
+      cursor: pointer;
+
+      &:hover {
+        color: rgb(155, 150, 150);
       }
     }
   }
+
+  @media (max-width: 768px) {
+    .modal_content {
+      max-width: 70%;
+
+      .close_button {
+        top: -1em;
+      }
+    }
+
+  }
+}

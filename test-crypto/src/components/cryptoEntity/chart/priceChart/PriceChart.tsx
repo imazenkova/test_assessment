@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { customColumnNames } from '../../../../pages/MainTablePage/ColumnNames';
+import style from "./PriceChart.module.scss"
 
 ChartJS.register(
   CategoryScale,
@@ -109,7 +110,7 @@ const PriceChart: React.FC<IPriceChartProps> = ({ historyData, interval }) => {
   };
 
   return (
-    <div>
+    <div className={style.container}>
       <Line data={chartData} options={options} />
     </div>
   );

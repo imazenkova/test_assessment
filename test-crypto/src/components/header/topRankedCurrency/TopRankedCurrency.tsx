@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { RoutesPath } from "../../../../types/RoutesTypes";
-import { formatPriceWithSuffix } from "../../../../utils/formatNumericValue";
+import { RoutesPath } from "../../../types/RoutesTypes";
+import { formatPriceWithSuffix } from "../../../utils/formatNumericValue";
 import styles from './TopRankedCurrency.module.scss';
 
 interface TopRankedCurrencyProps {

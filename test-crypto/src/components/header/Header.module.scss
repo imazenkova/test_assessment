@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width:90%;
+    width: 90%;
 
     .navbar_center {
       display: flex;
@@ -26,7 +26,6 @@
       align-items: center;
       width: 70%;
       font-size: 16px;
-
     }
 
     .navbar_right {
@@ -55,6 +54,7 @@
     align-items: flex-start;
     text-align: center;
     padding: 1rem;
+
     .navbar_center {
       margin-bottom: 1rem;
     }

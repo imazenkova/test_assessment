@@ -1,28 +1,4 @@
 .container {
     text-align: center;
-    margin-bottom: 20px;
-    .intervalButtons {
-      display: flex;
-      justify-content: center;
-
-      .intervalButton {
-        padding: 10px 20px;
-        margin: 0 5px;
-        font-size: 14px;
-        background-color: #eee;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-
-        &.selected {
-          background-color: #ccc;
-        }
-      }
-    }
-  
-    h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-    
+    margin-bottom: 20px;    
   }
