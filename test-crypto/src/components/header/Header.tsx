@@ -41,46 +41,46 @@ function Header() {
     }
   }
 
-  async function getChanges() {
-    try {
-      const allCoins = await getAllCoins();
-      updateFreshCoins(allCoins);
-      const backpackData = getBackpack();
+  // async function getChanges() {
+  //   try {
+  //     const allCoins = await getAllCoins();
+  //     updateFreshCoins(allCoins);
+  //     const backpackData = getBackpack();
 
-      const newData = backpackData.map((item) => {
-        const coin = allCoins.find((coin: ICurrency) => coin.id === item.coinId);
-        if (coin) {
-          return { ...item, price: coin.priceUsd };
-        }
-        return item;
-      });
+  //     const newData = backpackData.map((item) => {
+  //       const coin = allCoins.find((coin: ICurrency) => coin.id === item.coinId);
+  //       if (coin) {
+  //         return { ...item, price: coin.priceUsd };
+  //       }
+  //       return item;
+  //     });
 
-      const newTotalCost = newData.reduce((acc, item) => {
-        return acc + item.cost * item.quantity;
-      }, 0);
+  //     const newTotalCost = newData.reduce((acc, item) => {
+  //       return acc + item.cost * item.quantity;
+  //     }, 0);
 
-      const oldTotalCost = localStorage.getItem("totalCost");
-      if (oldTotalCost) {
-        const percentChange = ((newTotalCost - parseFloat(oldTotalCost)) / parseFloat(oldTotalCost)) * 100;
-        const difference = newTotalCost - parseFloat(oldTotalCost);
+  //     const oldTotalCost = localStorage.getItem("totalCost");
+  //     if (oldTotalCost) {
+  //       const percentChange = ((newTotalCost - parseFloat(oldTotalCost)) / parseFloat(oldTotalCost)) * 100;
+  //       const difference = newTotalCost - parseFloat(oldTotalCost);
 
-        const percentString = `${(percentChange >= 0 ? '+' : '')}${percentChange.toFixed(2)}%`;
-        const differenceString = `${(difference >= 0 ? '+' : '')}${difference.toFixed(2)}`;
+  //       const percentString = `${(percentChange >= 0 ? '+' : '')}${percentChange.toFixed(2)}%`;
+  //       const differenceString = `${(difference >= 0 ? '+' : '')}${difference.toFixed(2)}`;
 
-        setCostChange({
-          percent: percentString,
-          difference: differenceString
-        });
-      }
+  //       setCostChange({
+  //         percent: percentString,
+  //         difference: differenceString
+  //       });
+  //     }
 
-    } catch (error) {
-      console.log("GetTopCoin error:", error);
-    }
-  }
+  //   } catch (error) {
+  //     console.log("GetTopCoin error:", error);
+  //   }
+  // }
 
   useEffect(() => {
   getTopCoins(topLimit);
-  getChanges();
+  // getChanges();
 }, []);
 
   const prepareTopRankedCurrency = (coin: ICurrency): TopCoinProps => {

@@ -16,7 +16,6 @@ const AddButton: React.FC<AddButtonProps> = ({ coinId, cost }) => {
 
     const closeModal = () => {
         setIsOpen(false);
-        window.location.reload();
     };
 
     return (

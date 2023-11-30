@@ -3,6 +3,7 @@ import BackpackCoinsContext, { ICoin } from '../../../context/backpackCoinContex
 import { roundingNumericValues } from '../../../utils/formatNumericValue';
 import Modal from '../../sharedComponents/modal/Modal';
 import styles from './RemoveCoinModal.module.scss';
+import { removeCoin } from '../../../utils/coinsUtils';
 
 interface RemoveCoinModalProps {
     isOpen: boolean;
@@ -15,21 +16,21 @@ const RemoveCoinModal: React.FC<RemoveCoinModalProps> = ({
 }) => {
     const [backpackCoins, setBackpackCoins] = useState<ICoin[]>([]);
     const context = useContext(BackpackCoinsContext);
-    const { getBackpack } = context!;
+    const { getBackpack, updateFullBackpack } = context!;
 
     useEffect(() => {
         const data = getBackpack();
         setBackpackCoins(data);
     }, [getBackpack]);
 
-    const handleRemove = (coinId: string) => {
+    const handleRemove = async (coinId: string) => {
         try {
-            const newBackpack = backpackCoins.filter(item => item.coinId !== coinId);
-            setBackpackCoins(newBackpack);
-            localStorage.setItem("backpack", JSON.stringify(newBackpack));
+            const newBackpack = await removeCoin(coinId, backpackCoins)
+            updateFullBackpack(newBackpack)
         } catch (error) {
-            console.log("UpdateCoinQuantity Error: ", error);
+            console.log("handleRemove Error", error)
         }
+
     };
 
     return (

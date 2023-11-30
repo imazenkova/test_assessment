@@ -1,7 +1,7 @@
 import { useState, ReactNode } from 'react';
 import BackpackCoinsContext, { ICoin } from './backpackCoinContext';
 import { ICurrency } from '../types/ApiTypes';
-
+import { countCoins } from '../utils/coinsUtils';
 interface IBackpackCoinsProviderProps {
     children: ReactNode;
 }
@@ -9,6 +9,13 @@ interface IBackpackCoinsProviderProps {
 const BackpackCoinsProvider = ({ children }: IBackpackCoinsProviderProps) => {
 
     const [freshCoins, setFreshCoins] = useState<ICurrency[]>([])
+    const [totalCost, setTotalCost] = useState<number>(0)
+
+    async function calculateTotalCost(coins: ICoin[]) {
+        const totalCost = await countCoins(coins);
+        setTotalCost(totalCost);
+        localStorage.setItem("totalCost", JSON.stringify(totalCost));
+    }
 
     const getBackpack = (): ICoin[] => {
         let backpack = localStorage.getItem("backpack")
@@ -20,7 +27,7 @@ const BackpackCoinsProvider = ({ children }: IBackpackCoinsProviderProps) => {
         }
     };
 
-    const setBackpack = (coinId: string, newQuantity: number, newCost: number) => {
+    const setOneCoinToBackpack = async (coinId: string, newQuantity: number, newCost: number) => {
 
         let backpack = localStorage.getItem("backpack")
         let result: ICoin[] = []
@@ -45,13 +52,19 @@ const BackpackCoinsProvider = ({ children }: IBackpackCoinsProviderProps) => {
             result = [{ coinId, quantity: newQuantity, cost: newCost }]
         }
         localStorage.setItem("backpack", JSON.stringify(result))
+        await calculateTotalCost(result)
     }
+
     const updateFreshCoins = (coins: ICurrency[]) => {
         setFreshCoins(coins)
     }
+    const updateFullBackpack = async (newBackpack: ICoin[]) => {
+        localStorage.setItem("backpack", JSON.stringify(newBackpack))
+        await calculateTotalCost(newBackpack)
+    }
 
-    const value = { freshCoins, updateFreshCoins, getBackpack, setBackpack }
-    
+    const value = { totalCost, freshCoins, updateFreshCoins, getBackpack, setOneCoinToBackpack, updateFullBackpack }
+
     return (
         <BackpackCoinsContext.Provider value={value}>
             {children}
