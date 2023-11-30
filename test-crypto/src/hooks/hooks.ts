@@ -12,7 +12,7 @@ interface IChanges {
 
 export function useGetChanges() {
     const context = useContext(BackpackCoinsContext);
-    const { getBackpack } = context!;
+    const { totalCost,getBackpack } = context!;
 
     const [costChange, setCostChange] = useState<IChanges>({
         percent: "+0.00$",
@@ -32,7 +32,7 @@ export function useGetChanges() {
                 return { ...currentCoin, cost: parseFloat(freshCoin!.priceUsd) }
             })
             const newTotalCost = await countCoins(newBackpack)
-            if (oldTotalCost) {
+            if (oldTotalCost !== null && parseFloat(oldTotalCost)) {
                 const percentChange = ((newTotalCost - parseFloat(oldTotalCost)) / parseFloat(oldTotalCost)) * 100;
                 const difference = newTotalCost - parseFloat(oldTotalCost);
 
@@ -50,6 +50,11 @@ export function useGetChanges() {
             throw Error;
         }
     }
+
+    useEffect(() => {
+        setDiffrence()
+    }, [totalCost]);
+
 
     useEffect(() => {
         setDiffrence()
