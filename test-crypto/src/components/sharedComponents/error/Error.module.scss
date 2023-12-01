@@ -1,3 +1,5 @@
+@import "../../../utils/variables.scss";
+
 .error__wrapper {
   display: flex;
   align-items: center;
@@ -5,7 +7,9 @@
   height: 100vh;
 
   .error__container {
-    background-color: #3861fb;
+    background-color: $mainColor;
+    opacity: 0.7;
+    padding: 2em 2em;
     flex-direction: column;
     display: flex;
     align-items: center;
@@ -46,15 +50,16 @@
 
   @media (max-width: 480px) {
     .error__container {
-      padding: 10px;
+      padding: 1em;
+      width: 80%;
 
       .error__message {
         font-size: 16px;
       }
 
       .error__image {
-        width: 40%;
-        height: 80%;
+        width: 4em;
+        height: 4em;
       }
 
       .error__button {
