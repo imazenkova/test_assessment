@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useBackpackCost } from "../../../hooks/backpackHook";
+import { useBackpackCost } from "../../../hooks/backpackHooks";
 import { formatPriceWithSuffix } from "../../../utils/formatNumericValue";
 import Button from "../../sharedComponents/button/Button";
 import RemoveCoinModal from "../removeCoinModal/RemoveCoinModal";

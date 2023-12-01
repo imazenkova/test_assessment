@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { IHistory, Interval } from '../../../../types/ApiTypes';
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  Legend,
+  LineElement,
   LinearScale,
   PointElement,
-  LineElement,
   Title,
-  Tooltip,
-  Filler,
-  Legend
+  Tooltip
 } from 'chart.js';
+import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { useChart } from '../../../../hooks/chartHooks';
 import { customColumnNames } from '../../../../pages/MainTablePage/ColumnNames';
-import style from "./PriceChart.module.scss"
+import { IHistory, Interval } from '../../../../types/ApiTypes';
+import style from "./PriceChart.module.scss";
 
 ChartJS.register(
   CategoryScale,
@@ -32,61 +33,9 @@ interface IPriceChartProps {
 }
 
 const PriceChart: React.FC<IPriceChartProps> = ({ historyData, interval }) => {
-  const [labels, setLabels] = useState<string[]>()
-  const [prices, setPrices] = useState<number[]>()
 
-  useEffect(() => {
-
-    const priceByInterval = new Map();
-    let keys: string[] = []
-    let values: number[] = []
-
-    if (interval === "d1") {
-
-      historyData.forEach(data => {
-        const time = new Date(data.time);
-        const day = time.toLocaleDateString();
-        const priceUsd = parseFloat(data.priceUsd);
-        priceByInterval.set(day, priceUsd);
-
-      });
-
-      keys = Array.from(priceByInterval.keys());
-      values = Array.from(priceByInterval.values());
-
-    } else if (interval === "h1") {
-
-      historyData.forEach(data => {
-        const time = new Date(data.time);
-        const hour = time.toLocaleTimeString();
-        const priceUsd = parseFloat(data.priceUsd);
-        priceByInterval.set(hour.slice(0, 5), priceUsd);
-
-      });
-
-      keys = Array.from(priceByInterval.keys());
-      values = Array.from(priceByInterval.values());
-
-    } else if (interval === "h12") {
-
-      historyData.forEach((data, index) => {
-        const time = new Date(data.time);
-        const day = time.toLocaleDateString();
-        const timeInDay = time.toLocaleTimeString();
-        const priceUsd = parseFloat(data.priceUsd);
-        priceByInterval.set(`${day} ${timeInDay.slice(0, 5)}`, priceUsd);
-      });
-
-      keys = Array.from(priceByInterval.keys()).splice(30, 60);
-      values = Array.from(priceByInterval.values());
-
-    }
-
-    setPrices(values)
-    setLabels(keys)
-  }, [historyData, interval])
-
-
+  const { labels, prices } = useChart(historyData, interval)
+  
   const chartData = {
     labels,
     datasets: [
