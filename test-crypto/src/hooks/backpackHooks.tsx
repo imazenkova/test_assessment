@@ -26,7 +26,7 @@ export function useRemoveCoinInBackpack() {
     useEffect(() => {
         const backpackCoins = getBackpack();
         setBackpackCoins(backpackCoins);
-    }, [totalCost]);
+    }, [totalCost,getBackpack]);
     
     return backpackCoins
 }
