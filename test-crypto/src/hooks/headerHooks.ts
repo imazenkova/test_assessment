@@ -12,7 +12,7 @@ interface IChanges {
 
 export function useGetChanges() {
     const context = useContext(BackpackCoinsContext);
-    const { totalCost,getBackpack } = context!;
+    const { totalCost, getBackpack } = context!;
 
     const [costChange, setCostChange] = useState<IChanges>({
         percent: "+0.00$",
@@ -26,25 +26,27 @@ export function useGetChanges() {
             const currentBackpack = getBackpack()
             const ids = currentBackpack.map((item) => item.coinId)
             var idsString = ids.join(",");
-            const freshCoins = await getCoinsByIds(idsString);
-            const newBackpack = currentBackpack.map((currentCoin) => {
-                const freshCoin = freshCoins.find((newCoin) => newCoin.id === currentCoin.coinId)
-                return { ...currentCoin, cost: parseFloat(freshCoin!.priceUsd) }
-            })
-            const newTotalCost = await countCoins(newBackpack)
-            if (oldTotalCost !== null && parseFloat(oldTotalCost)) {
-                const percentChange = ((newTotalCost - parseFloat(oldTotalCost)) / parseFloat(oldTotalCost)) * 100;
-                const difference = newTotalCost - parseFloat(oldTotalCost);
+            if (idsString) {
+                const freshCoins = await getCoinsByIds(idsString);
+                const newBackpack = currentBackpack.map((currentCoin) => {
+                    const freshCoin = freshCoins.find((newCoin) => newCoin.id === currentCoin.coinId)
+                    return { ...currentCoin, cost: parseFloat(freshCoin!.priceUsd) }
+                })
+                const newTotalCost = await countCoins(newBackpack)
+                if (oldTotalCost !== null && parseFloat(oldTotalCost)) {
+                    const percentChange = ((newTotalCost - parseFloat(oldTotalCost)) / parseFloat(oldTotalCost)) * 100;
+                    const difference = newTotalCost - parseFloat(oldTotalCost);
 
-                const percentString = `${(percentChange >= 0 ? '+' : '')}${percentChange.toFixed(2)}%`;
-                const differenceString = `${(difference >= 0 ? '+' : '')}${difference.toFixed(2)}$`;
+                    const percentString = `${(percentChange >= 0 ? '+' : '')}${percentChange.toFixed(2)}%`;
+                    const differenceString = `${(difference >= 0 ? '+' : '')}${difference.toFixed(2)}$`;
 
-                setCostChange({
-                    percent: percentString,
-                    difference: differenceString
-                });
-            }
-            return newTotalCost;
+                    setCostChange({
+                        percent: percentString,
+                        difference: differenceString
+                    });
+                }
+            } 
+
         } catch (error) {
             console.log("getFreshCoins", error)
             throw Error;

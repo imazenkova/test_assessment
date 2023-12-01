@@ -58,6 +58,7 @@ const BackpackCoinsProvider = ({ children }: IBackpackCoinsProviderProps) => {
     const updateFreshCoins = (coins: ICurrency[]) => {
         setFreshCoins(coins)
     }
+
     const updateFullBackpack = async (newBackpack: ICoin[]) => {
         localStorage.setItem("backpack", JSON.stringify(newBackpack))
         await calculateTotalCost(newBackpack)
