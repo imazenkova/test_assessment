@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
-import { SortOrder,SortOrderEnum } from '../../../types/SortableTypes';
+import { FC } from 'react';
+import { SortOrder, SortOrderEnum } from '../../../types/SortableTypes';
 import { ICurrency } from '../../../types/ApiTypes';
 import { customColumnNames } from '../../../pages/MainTablePage/ColumnNames';
 
 type SortableColumnProps = {
-    cryptoAssets:ICurrency[];
+    cryptoAssets: ICurrency[];
     columnName: keyof ICurrency;
     sortColumn: string;
     sortOrder: SortOrder;
@@ -20,22 +20,22 @@ const SortableColumn: FC<SortableColumnProps> = ({
 }) => {
     const handleClick = () => {
         const newSortOrder: SortOrderEnum =
-          sortColumn === columnName && sortOrder === SortOrderEnum.ASC
-            ? SortOrderEnum.DESC
-            : SortOrderEnum.ASC;
-      
+            sortColumn === columnName && sortOrder === SortOrderEnum.ASC
+                ? SortOrderEnum.DESC
+                : SortOrderEnum.ASC;
+
         onSort(columnName, newSortOrder);
-      
+
         cryptoAssets.sort((a, b) => {
-          const aValue = parseFloat(a[columnName]);
-          const bValue = parseFloat(b[columnName]);
-          return newSortOrder === SortOrderEnum.ASC ? aValue - bValue : bValue - aValue;
+            const aValue = parseFloat(a[columnName]);
+            const bValue = parseFloat(b[columnName]);
+            return newSortOrder === SortOrderEnum.ASC ? aValue - bValue : bValue - aValue;
         });
-      };
+    };
 
     return (
         <th scope='col' onClick={handleClick}>
-            { customColumnNames[columnName]}
+            {customColumnNames[columnName]}
             {sortColumn === columnName && (
                 <span>{sortOrder === 'asc' ? '↑' : '↓'}</span>
             )}

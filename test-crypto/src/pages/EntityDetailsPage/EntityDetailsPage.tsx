@@ -1,102 +1,34 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import AddButton from "../../components/backpack/addButton/AddButton";
-import PriceChart from "../../components/cryptoEntity/chart/priceChart/PriceChart";
+import { useState } from "react";
 import EntityInfo from "../../components/cryptoEntity/entityInfo/EntityInfo";
-import Loader from "../../components/sharedComponents/loader/Loader";
-import { ICurrency, IHistory, Interval } from "../../types/ApiTypes";
-import { RoutesPath } from "../../types/RoutesTypes";
+import IntervalButtons from "../../components/cryptoEntity/intervalButtons/IntervalButtons";
+import PriceChart from "../../components/cryptoEntity/priceChart/PriceChart";
+import { useGetCoinById } from "../../hooks/coinsHooks";
+import { Interval } from "../../types/ApiTypes";
 import style from "./EntityDetailsPage.module.scss";
-import { fetchDetailsData, fetchHistoryData } from "./api";
 
 const EntityDetailsPage = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [entityDetails, setEntityDetails] = useState<ICurrency | null>(null);
-    const [historyData, setHistoryData] = useState<IHistory[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [apiError, setApiError] = useState(false);
     const [selectedInterval, setSelectedInterval] = useState<Interval>("h1");
+    const coinId = useGetCoinById()
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setIsLoading(true);
-
-                const details = await fetchDetailsData(id);
-                if (details) {
-                    setEntityDetails(details);
-
-                    const history = await fetchHistoryData(id, selectedInterval);
-                    setHistoryData(history);
-                }
-
-                setIsLoading(false);
-            } catch (error) {
-                setApiError(true);
-                console.error("Fetch Data Error:", error);
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [id, selectedInterval]);
-
-    useEffect(() => {
-        if (apiError) {
-            navigate(`${RoutesPath.ENTITY_DETAILS}/${id}/error`);
-        }
-    }, [apiError, id, navigate]);
-
-    const handleIntervalChange = (interval: Interval) => {
+    const handleIntervalChange = (interval: Interval) =>
         setSelectedInterval(interval);
-    };
 
     return (
         <>
-            {isLoading ? (
-                <Loader message="Loading..." />
-            ) : apiError ? (
-                <></>
-            ) : (
-                <div>
-                    <div className={style.wrapper}>
-                        <div className={style.container}>
-                            <div className={style.info_block}>
-                                {entityDetails && (
-                                    <>
-                                        <AddButton coinId={id!} cost={parseFloat(entityDetails.priceUsd)} />
-                                        <EntityInfo entityDetails={entityDetails} />
-                                    </>
-                                )}
-                            </div>
-                            <div className={style.schedule_block}>
-                                <div className={style.interval_buttons}>
-                                    <button
-                                        className={`${style.interval_button} ${selectedInterval === "h1" && style.selected}`}
-                                        onClick={() => handleIntervalChange("h1")}
-                                    >
-                                        1 Hour
-                                    </button>
-                                    <button
-                                        className={`${style.interval_button} ${selectedInterval === "h12" && style.selected}`}
-                                        onClick={() => handleIntervalChange("h12")}
-                                    >
-                                        12 Hours
-                                    </button>
-                                    <button
-                                        className={`${style.interval_button} ${selectedInterval === "d1" && style.selected}`}
-                                        onClick={() => handleIntervalChange("d1")}
-                                    >
-                                        1 Day
-                                    </button>
-                                </div>
-                                <PriceChart historyData={historyData} interval={selectedInterval} />
-                            </div>
+            <div>
+                <div className={style.wrapper}>
+                    {coinId && (<div className={style.container}>
+                        <div className={style.info_block}>
+                            <EntityInfo id={coinId} />
                         </div>
-                    </div>
+                        <div className={style.schedule_block}>
+                            <IntervalButtons onIntervalChange={handleIntervalChange} />
+                            <PriceChart id={coinId} interval={selectedInterval} />
+                        </div>
+                    </div>)}
+
                 </div>
-            )}
+            </div>
         </>
     );
 };

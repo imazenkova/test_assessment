@@ -8,13 +8,11 @@ const Backpack = () => {
     const [showModal, setShowModal] = useState(false);
     const backpackCost = useBackpackCost();
 
-    const handleCloseModal = () => {
+    const handleCloseModal = () =>
         setShowModal(false);
-    };
 
-    const handleClick = () => {
+    const handleClick = () =>
         setShowModal(true);
-    };
 
     return (
         <>

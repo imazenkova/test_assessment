@@ -16,6 +16,7 @@ interface TopCoinProps {
 
 function Header() {
   const topLimit = 3;
+  
   const topCurrencyData = useTopCoins(topLimit);
 
   const prepareTopRankedCurrency = (coin: ICurrency): TopCoinProps => {

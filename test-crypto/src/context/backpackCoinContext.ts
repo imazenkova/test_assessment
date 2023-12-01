@@ -1,5 +1,4 @@
 import React from "react";
-import { ICurrency } from "../types/ApiTypes";
 
 export interface ICoin {
     coinId: string;
@@ -9,8 +8,6 @@ export interface ICoin {
 
 interface BackpacCoinsContextType {
     totalCost: number;
-    freshCoins: ICurrency[];
-    updateFreshCoins: (coins: ICurrency[]) => void;
     getBackpack: () => ICoin[];
     setOneCoinToBackpack: (coinId: string, newQuantity: number, newCost: number) => void;
     updateFullBackpack: (newBackpack:ICoin[])=> void;

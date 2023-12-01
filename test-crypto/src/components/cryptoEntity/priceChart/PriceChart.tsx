@@ -11,9 +11,11 @@ import {
 } from 'chart.js';
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { useChart } from '../../../../hooks/chartHooks';
-import { customColumnNames } from '../../../../pages/MainTablePage/ColumnNames';
-import { IHistory, Interval } from '../../../../types/ApiTypes';
+import { useChart } from '../../../hooks/chartHooks';
+import { useGetHistory } from '../../../hooks/coinsHooks';
+import { customColumnNames } from '../../../pages/MainTablePage/ColumnNames';
+import { Interval } from '../../../types/ApiTypes';
+import Loader from '../../sharedComponents/loader/Loader';
 import style from "./PriceChart.module.scss";
 
 ChartJS.register(
@@ -28,14 +30,15 @@ ChartJS.register(
 );
 
 interface IPriceChartProps {
-  historyData: IHistory[];
   interval: Interval;
+  id: string;
 }
 
-const PriceChart: React.FC<IPriceChartProps> = ({ historyData, interval }) => {
+const PriceChart: React.FC<IPriceChartProps> = ({ interval, id }) => {
 
+  const { isLoading, historyData, apiError } = useGetHistory(id, interval)
   const { labels, prices } = useChart(historyData, interval)
-  
+
   const chartData = {
     labels,
     datasets: [
@@ -59,9 +62,19 @@ const PriceChart: React.FC<IPriceChartProps> = ({ historyData, interval }) => {
   };
 
   return (
-    <div className={style.container}>
-      <Line data={chartData} options={options} />
-    </div>
+    <>
+      {!apiError && (
+        <>
+          {isLoading ? (
+            <Loader message="" />
+          ) : (
+            <div className={style.container}>
+              <Line data={chartData} options={options} />
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 };
 

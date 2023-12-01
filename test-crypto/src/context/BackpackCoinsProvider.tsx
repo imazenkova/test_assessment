@@ -1,14 +1,12 @@
-import { useState, ReactNode } from 'react';
-import BackpackCoinsContext, { ICoin } from './backpackCoinContext';
-import { ICurrency } from '../types/ApiTypes';
+import { ReactNode, useState } from 'react';
 import { countCoins } from '../utils/coinsUtils';
+import BackpackCoinsContext, { ICoin } from './backpackCoinContext';
+
 interface IBackpackCoinsProviderProps {
     children: ReactNode;
 }
 
 const BackpackCoinsProvider = ({ children }: IBackpackCoinsProviderProps) => {
-
-    const [freshCoins, setFreshCoins] = useState<ICurrency[]>([])
     const [totalCost, setTotalCost] = useState<number>(0)
 
     async function calculateTotalCost(coins: ICoin[]) {
@@ -55,16 +53,12 @@ const BackpackCoinsProvider = ({ children }: IBackpackCoinsProviderProps) => {
         await calculateTotalCost(result)
     }
 
-    const updateFreshCoins = (coins: ICurrency[]) => {
-        setFreshCoins(coins)
-    }
-
     const updateFullBackpack = async (newBackpack: ICoin[]) => {
         localStorage.setItem("backpack", JSON.stringify(newBackpack))
         await calculateTotalCost(newBackpack)
     }
 
-    const value = { totalCost, freshCoins, updateFreshCoins, getBackpack, setOneCoinToBackpack, updateFullBackpack }
+    const value = { totalCost, getBackpack, setOneCoinToBackpack, updateFullBackpack }
 
     return (
         <BackpackCoinsContext.Provider value={value}>

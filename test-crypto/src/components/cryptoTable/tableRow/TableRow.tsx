@@ -14,11 +14,11 @@ interface TableRowProps {
 
 const TableRow: React.FC<TableRowProps> = ({ crypto, index, currentPage, pageSize }) => {
     const navigate = useNavigate();
+
     const imageUrl = `https://assets.coincap.io/assets/icons/${crypto.symbol.toLowerCase()}@2x.png`;
 
-    const handleClick = (id: string) => {
-        navigate(`${RoutesPath.ENTITY_DETAILS}/${id}`)
-    };
+    const handleClick = (id: string) =>
+        navigate(`${RoutesPath.ENTITY_DETAILS}/${id}`);
 
     return (
 
@@ -34,9 +34,9 @@ const TableRow: React.FC<TableRowProps> = ({ crypto, index, currentPage, pageSiz
             <td onClick={() => handleClick(crypto.id)} >{roundingNumericValues(parseFloat(crypto.supply))}</td>
             <td onClick={() => handleClick(crypto.id)}>{formatPriceWithSuffix(parseFloat(crypto.volumeUsd24Hr))}</td>
             <td onClick={() => handleClick(crypto.id)} >{formatPriceWithSuffix(parseFloat(crypto.changePercent24Hr))}%</td>
-            <td ><AddButton coinId={crypto.id} cost={parseFloat(crypto.priceUsd)}/></td>
+            <td ><AddButton coinId={crypto.id} cost={parseFloat(crypto.priceUsd)} /></td>
         </tr>
-        
+
     );
 };
 

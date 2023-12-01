@@ -21,13 +21,11 @@ const RemoveCoinModal: React.FC<RemoveCoinModalProps> = ({
 
     const handleRemove = async (coinId: string) => {
         try {
-            debugger
             const newBackpack = await removeCoin(coinId, backpackCoins)
             updateFullBackpack(newBackpack)
         } catch (error) {
             console.log("handleRemove Error", error)
         }
-
     };
 
     return (

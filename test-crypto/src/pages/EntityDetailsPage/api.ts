@@ -1,4 +1,4 @@
-import { getCryptoHistory, getEntityDetails } from "../../api/Api";
+import { getCryptoHistory } from "../../api/Api";
 import { Interval } from "../../types/ApiTypes";
 
 export const fetchHistoryData = async (id: string | undefined, interval: Interval) => {
@@ -11,12 +11,5 @@ export const fetchHistoryData = async (id: string | undefined, interval: Interva
   if (!id) return [];
 
   const data = await getCryptoHistory(id, interval, oneMonthAgoTimestamp, currentTimestamp);
-  return data;
-};
-
-export const fetchDetailsData = async (id: string | undefined) => {
-  if (!id) return null;
-
-  const data = await getEntityDetails(id);
   return data;
 };

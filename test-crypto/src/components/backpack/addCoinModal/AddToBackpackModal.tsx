@@ -35,12 +35,14 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
             console.log("UpdateCoinQuantity Error: ", error);
         }
     };
+
     const handleClose = () => {
         closeModal();
         setShowSuccNotification(false);
         setQuantity(1)
 
     };
+    
     return (
         <Modal isOpen={isOpen} onClose={handleClose}>
             {showSuccNotification ? (
