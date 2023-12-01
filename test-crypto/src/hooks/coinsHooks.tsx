@@ -99,7 +99,7 @@ export function useGetEntityInfo() {
 
 export function useGetCoinById() {
     const navigate = useNavigate();
-    const [coinId,setCoinId]=useState<string>()
+    const [coinId, setCoinId] = useState<string>();
     const { id } = useParams();
 
     const getCoin = async (id: string) => {
@@ -116,10 +116,9 @@ export function useGetCoinById() {
             navigate(`${RoutesPath.ENTITY_DETAILS}/${id}/error`);
         } else {
             getCoin(id);
-            setCoinId(id)
+            setCoinId(id);
         }
+    }, [id]); // Добавляем id в зависимости useEffect
 
-    }, []);
-
-    return coinId
+    return coinId;
 }

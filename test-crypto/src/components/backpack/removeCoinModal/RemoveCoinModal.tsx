@@ -23,6 +23,9 @@ const RemoveCoinModal: React.FC<RemoveCoinModalProps> = ({
         try {
             const newBackpack = await removeCoin(coinId, backpackCoins)
             updateFullBackpack(newBackpack)
+            if (newBackpack.length===0){
+                onClose()
+            }
         } catch (error) {
             console.log("handleRemove Error", error)
         }
