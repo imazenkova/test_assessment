@@ -18,7 +18,7 @@ const EntityInfo: React.FC<IEntityInfoProps> = ({ id }) => {
             <>
                 {entityDetails && (
                     <div className={style.container_info}>
-                        <AddButton coinId={id!} cost={parseFloat(entityDetails.priceUsd)} />
+                        <AddButton name={entityDetails.name} coinId={id!} cost={parseFloat(entityDetails.priceUsd)} />
                         <div className={style.title_info}>
                             <div className={style.img}>
                                 <img src={`https://assets.coincap.io/assets/icons/${entityDetails.symbol.toLowerCase()}@2x.png`} alt="" />

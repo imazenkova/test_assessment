@@ -5,6 +5,7 @@ import { roundingNumericValues } from '../../../utils/formatNumericValue';
 import Modal from '../../sharedComponents/modal/Modal';
 
 interface AddToBackpackProps {
+    name: string;
     coinId: string;
     cost: number;
     isOpen: boolean;
@@ -12,6 +13,7 @@ interface AddToBackpackProps {
 }
 
 const AddToBackpack: React.FC<AddToBackpackProps> = ({
+    name,
     coinId,
     cost,
     isOpen,
@@ -26,7 +28,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
 
     const handleAdd = () => {
         try {
-            if (!quantity || quantity < 0 || quantity > 1000001) {
+            if (!quantity || quantity < 0 || quantity > 10001) {
                 return setShowEmptyInput(true);
             }
             setOneCoinToBackpack(coinId, quantity, cost);
@@ -40,9 +42,8 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
         closeModal();
         setShowSuccNotification(false);
         setQuantity(1)
-
     };
-    
+
     return (
         <Modal isOpen={isOpen} onClose={handleClose}>
             {showSuccNotification ? (
@@ -50,9 +51,9 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
                     <p>✓ Coins added to backpack!</p>
                 </div>
             ) : (
-                <div>
+                <div className={styles.info_container}>
                     <h2>Add to Backpack</h2>
-                    <p>Coin: {coinId}</p>
+                    <p>Coin: {name}</p>
                     <p>Cost: {roundingNumericValues(cost)}</p>
                     <div className={styles.quantity_container}>
                         <input

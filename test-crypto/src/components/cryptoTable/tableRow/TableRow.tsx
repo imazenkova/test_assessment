@@ -30,11 +30,11 @@ const TableRow: React.FC<TableRowProps> = ({ crypto, index, currentPage, pageSiz
             <td onClick={() => handleClick(crypto.id)} >{crypto.symbol}</td>
             <td onClick={() => handleClick(crypto.id)} >{crypto.name}</td>
             <td onClick={() => handleClick(crypto.id)} >{formatPriceWithSuffix(parseFloat(crypto.priceUsd))}</td>
-            <td onClick={() => handleClick(crypto.id)} >{formatPriceWithSuffix(parseFloat(crypto.marketCapUsd))}</td>
+            <td onClick={() => handleClick(crypto.id)} >{roundingNumericValues(parseFloat(crypto.marketCapUsd))}</td>
             <td onClick={() => handleClick(crypto.id)} >{roundingNumericValues(parseFloat(crypto.supply))}</td>
-            <td onClick={() => handleClick(crypto.id)}>{formatPriceWithSuffix(parseFloat(crypto.volumeUsd24Hr))}</td>
-            <td onClick={() => handleClick(crypto.id)} >{formatPriceWithSuffix(parseFloat(crypto.changePercent24Hr))}%</td>
-            <td ><AddButton coinId={crypto.id} cost={parseFloat(crypto.priceUsd)} /></td>
+            <td onClick={() => handleClick(crypto.id)}>{roundingNumericValues(parseFloat(crypto.volumeUsd24Hr))}</td>
+            <td onClick={() => handleClick(crypto.id)} >{roundingNumericValues(parseFloat(crypto.changePercent24Hr))}%</td>
+            <td ><AddButton name={crypto.name} coinId={crypto.id} cost={parseFloat(crypto.priceUsd)} /></td>
         </tr>
 
     );
