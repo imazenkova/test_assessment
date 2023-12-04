@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { getCoinsByIds } from "../api/Api";
+import BackpackCoinsContext from "../context/backpackCoinContext";
 import { ICurrency } from "../types/ApiTypes";
 import { countCoins, getTopCoins } from "../utils/coinsUtils";
-import BackpackCoinsContext from "../context/backpackCoinContext";
 
 interface IChanges {
     percent: string;
@@ -31,7 +31,7 @@ export function useGetChanges() {
                     const freshCoin = freshCoins.find((newCoin) => newCoin.id === currentCoin.coinId)
                     return { ...currentCoin, cost: parseFloat(freshCoin!.priceUsd) }
                 })
-                
+
                 const newTotalCost = await countCoins(newBackpack)
                 if (oldTotalCost !== null && parseFloat(oldTotalCost)) {
                     const percentChange = ((newTotalCost - parseFloat(oldTotalCost)) / parseFloat(oldTotalCost)) * 100;
@@ -45,7 +45,7 @@ export function useGetChanges() {
                         difference: differenceString
                     });
                 }
-            } 
+            }
         } catch (error) {
             console.log("getFreshCoins", error)
             throw Error;

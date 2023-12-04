@@ -1,13 +1,12 @@
 .header {
   display: flex;
-  height: 4.375rem;
+  height: 10hv;
   padding-top: 1.25rem;
   flex-direction: row;
   color: #000101;
   text-align: center;
   box-shadow: 2px 2px 8px #a8a8a8;
-  background-color: rgb(53, 162, 235, 0.3);
-
+  background-color: rgba(53, 162, 235, 0.3);
   width: 100%;
   align-content: flex-start;
   justify-content: center;
@@ -17,22 +16,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 90%;
+    width: 100%;
 
     .navbar_center {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      width: 70%;
+      width: 50%;
       font-size: 16px;
     }
 
     .navbar_right {
-      display: inline-block;
-      font-size: 1.125rem;
-      padding: 0.75rem;
-      color: black;
+      display: flex;
+      flex-direction: row;
+      margin-right: 2em;
+      font-size: 0.9rem;
       text-decoration: none;
       transition: color 0.3s ease-in-out;
 
@@ -40,23 +39,27 @@
         color: grey;
       }
     }
-
   }
 
-  &a:hover {
+  & a:hover {
     color: white;
   }
 
-}
+  @media (max-width: 768px) {
+    .navbar {
+      align-items: flex-start;
+      text-align: center;
+      padding: 1rem;
 
-@media (max-width: 768px) {
-  .navbar {
-    align-items: flex-start;
-    text-align: center;
-    padding: 1rem;
+      .navbar_center {
+        margin-bottom: 1rem;
+        width: 70%;
 
-    .navbar_center {
-      margin-bottom: 1rem;
+      }
+      .navbar_right {
+        margin-bottom: 1rem;
+        font-size: 0.5em;
+      }
     }
   }
 }

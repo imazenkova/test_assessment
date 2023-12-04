@@ -1,4 +1,4 @@
-import './App.scss';
+import'./App.scss';
 import Header from './components/header/Header';
 import BackpackCoinsProvider from './context/BackpackCoinsProvider';
 import AppRoutes from './routes/AppRoutes';
@@ -6,7 +6,7 @@ import AppRoutes from './routes/AppRoutes';
 function App() {
 
   return (
-    <div className='wrapper'>
+    <div className="wrapper">
       <BackpackCoinsProvider>
         <Header />
         <AppRoutes />

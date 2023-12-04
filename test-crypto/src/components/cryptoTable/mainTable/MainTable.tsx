@@ -37,7 +37,7 @@ const MainTable = () => {
     return (
         <>
             {isLoading ? <Loader message="Loading..." /> :
-                <div className={TableStyles.wrapper}>
+                 <div className={TableStyles.wrapper}>
                     <SearchBar onSearchInput={handleSearch} />
                     <table className={TableStyles.main_table}>
                         <thead>
@@ -90,7 +90,8 @@ const MainTable = () => {
                         pageNumbers={pageNumbers}
                         onPageChange={handlePageChange}
                     />
-                </div >}
+                    </div>
+                }
         </>
     );
 };

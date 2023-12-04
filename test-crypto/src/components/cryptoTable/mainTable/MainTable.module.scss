@@ -1,13 +1,12 @@
-.main_table {
-  border-collapse: separate;
-  border-spacing: 0;
-  width: 90%;
-  margin: 0 auto;
+  .main_table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 90%;
+    margin: 0 auto;
   tr {
     position: relative;
-    height: 10vh;
     cursor: pointer;
-  
+
     &::before {
       content: '';
       position: absolute;
@@ -18,55 +17,42 @@
       border-radius: 5px;
       pointer-events: none;
     }
-  
+
     &:hover::before {
       background-color: rgba(211, 211, 211, 0.5);
-  
+
     }
-  
+
     &:active::before {
       background-color: #3861fb;
       opacity: 0.5;
     }
-  
+
   }
-  
+
   thead {
     border-radius: 20px;
   }
-  
+
   td {
     padding: 10px;
-  
+
   }
-  
+
   td img {
     width: 1.5rem;
     height: 1.5rem;
   }
-  
+
   th span {
     color: #888888;
     font-size: 12px;
   }
-  
+
   td:last-child {
     text-align: center;
   }
-  @media only screen and (max-width: 480px) {
-    width: 100%;
-    tr {
-      height: auto;
-    }
 
-    td {
-      padding: 5px;
-    }
-
-    th span {
-      font-size: 10px;
-    }
-  }
 
 }
 

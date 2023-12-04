@@ -3,8 +3,8 @@ import { ICurrency } from '../../types/ApiTypes';
 import { formatPriceWithSuffix } from '../../utils/formatNumericValue';
 import Backpack from '../backpack/backpackButton/Backpack';
 import MoveToTableButton from '../moveToTableButton/MoveToTableButton';
-import DifferencePercent from "./Differences";
 import styles from './Header.module.scss';
+import DifferencePercent from "./differences/Differences";
 import TopRankedCurrency from './topRankedCurrency/TopRankedCurrency';
 
 interface TopCoinProps {
@@ -15,6 +15,7 @@ interface TopCoinProps {
 }
 
 function Header() {
+
   const topLimit = 3;
   
   const topCurrencyData = useTopCoins(topLimit);
@@ -32,7 +33,7 @@ function Header() {
     <div className={styles.header}>
       <header className={styles.navbar}>
         <div><MoveToTableButton /></div>
-
+  
         <div className={styles.navbar_center}>
           {topCurrencyData.map((item) => (
             <TopRankedCurrency key={item.id} {...prepareTopRankedCurrency(item)} />
@@ -41,8 +42,9 @@ function Header() {
 
         <div className={styles.navbar_right}>
           <Backpack />
+          <DifferencePercent />
         </div>
-        <DifferencePercent />
+   
       </header>
     </div>
   );
