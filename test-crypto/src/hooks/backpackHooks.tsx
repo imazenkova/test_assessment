@@ -18,7 +18,7 @@ export function useBackpackCost() {
     return backpackCost
 }
 
-export function useRemoveCoinInBackpack() {
+export function useGetCoinInBackpack() {
     const [backpackCoins, setBackpackCoins] = useState<ICoin[]>([]);
     const context = useContext(BackpackCoinsContext);
     const { totalCost, getBackpack } = context!;

@@ -2,11 +2,14 @@ import { useState } from "react";
 import { formatPriceWithSuffix } from "../../../utils/formatNumericValue";
 import Button from "../../sharedComponents/button/Button";
 import RemoveCoinModal from "../removeCoinModal/RemoveCoinModal";
+import { ICoin } from "../../../context/backpackCoinContext";
 
  interface BackpackProps{
-    backpackCost:number;
+    backpackCost:number,
+    backpackCoins:ICoin[]
  }
-const Backpack: React.FC<BackpackProps>= ({backpackCost}) => {
+
+const Backpack: React.FC<BackpackProps>= ({backpackCost,backpackCoins}) => {
     const [showModal, setShowModal] = useState(false);
 
     const handleCloseModal = () =>
@@ -21,7 +24,7 @@ const Backpack: React.FC<BackpackProps>= ({backpackCost}) => {
                 {backpackCost && `$ ${formatPriceWithSuffix(backpackCost)}`}
             </Button>
             {showModal && (
-                <RemoveCoinModal isOpen={showModal} onClose={handleCloseModal} />
+                <RemoveCoinModal backpackCoins={backpackCoins} isOpen={showModal} onClose={handleCloseModal} />
             )}
         </>
     );

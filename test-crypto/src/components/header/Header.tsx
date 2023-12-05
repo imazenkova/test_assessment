@@ -1,4 +1,4 @@
-import { useBackpackCost } from '../../hooks/backpackHooks';
+import { useBackpackCost, useGetCoinInBackpack } from '../../hooks/backpackHooks';
 import { useTopCoins } from '../../hooks/headerHooks';
 import { ICurrency } from '../../types/ApiTypes';
 import { formatPriceWithSuffix } from '../../utils/formatNumericValue';
@@ -21,6 +21,7 @@ function Header() {
   
   const topCurrencyData = useTopCoins(topLimit);
    const backpackCost = useBackpackCost();
+   const backpackCoins = useGetCoinInBackpack()
 
   const prepareTopRankedCurrency = (coin: ICurrency): TopCoinProps => {
     return {
@@ -43,7 +44,7 @@ function Header() {
         </div>
 
         <div className={styles.navbar_right}>
-          <Backpack backpackCost={backpackCost}/>
+          <Backpack backpackCoins={backpackCoins} backpackCost={backpackCost}/>
           <DifferencePercent />
         </div>
    

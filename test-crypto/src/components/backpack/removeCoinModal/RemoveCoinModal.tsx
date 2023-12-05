@@ -1,24 +1,25 @@
 import React, { useContext } from 'react';
-import BackpackCoinsContext from '../../../context/backpackCoinContext';
-import { useRemoveCoinInBackpack } from '../../../hooks/backpackHooks';
+import BackpackCoinsContext, { ICoin } from '../../../context/backpackCoinContext';
+import { useGetCoinInBackpack } from '../../../hooks/backpackHooks';
 import { removeCoin } from '../../../utils/coinsUtils';
 import { roundingNumericValues } from '../../../utils/formatNumericValue';
 import Modal from '../../sharedComponents/modal/Modal';
 import styles from './RemoveCoinModal.module.scss';
 
 interface RemoveCoinModalProps {
+    backpackCoins:ICoin[];
     isOpen: boolean;
     onClose: () => void;
 }
 
 const RemoveCoinModal: React.FC<RemoveCoinModalProps> = ({
+    backpackCoins,
     isOpen,
     onClose,
 }) => {
     const context = useContext(BackpackCoinsContext);
     const { updateFullBackpack } = context!;
-    const backpackCoins = useRemoveCoinInBackpack()
-
+    
     const handleRemove = async (coinId: string) => {
         try {
             const newBackpack = await removeCoin(coinId, backpackCoins)
