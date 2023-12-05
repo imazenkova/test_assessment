@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { useBackpackCost } from "../../../hooks/backpackHooks";
 import { formatPriceWithSuffix } from "../../../utils/formatNumericValue";
 import Button from "../../sharedComponents/button/Button";
 import RemoveCoinModal from "../removeCoinModal/RemoveCoinModal";
 
-const Backpack = () => {
+ interface BackpackProps{
+    backpackCost:number;
+ }
+const Backpack: React.FC<BackpackProps>= ({backpackCost}) => {
     const [showModal, setShowModal] = useState(false);
-    const backpackCost = useBackpackCost();
 
     const handleCloseModal = () =>
         setShowModal(false);
