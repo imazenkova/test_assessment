@@ -1,33 +1,23 @@
 import { useState } from 'react';
-import { useGetPaginationAssets } from '../../../hooks/coinsHooks';
 import { customColumnNames } from '../../../pages/MainTablePage/ColumnNames';
+import { ICurrency } from '../../../types/ApiTypes';
 import { SortOrder, SortOrderEnum } from '../../../types/SortableTypes';
 import Loader from '../../sharedComponents/loader/Loader';
-import Pagination from '../../sharedComponents/pagination/Pagination';
-import SearchBar from '../../sharedComponents/searchBar/SearchBar';
 import SortableColumn from '../sortableColumn/SortableColumn';
 import TableRow from '../tableRow/TableRow';
 import TableStyles from './MainTable.module.scss';
 
-const MainTable = () => {
+interface MainTableProps {
+    isLoading:boolean, 
+    cryptoAssets:ICurrency[]
+    currentPageNumber:number,
+    pageSize:number
+}
 
-    const [currentPageNumber, setCurrentPageNumber] = useState<number>(1);
-    const [searchInput, setSearchInput] = useState<string>('');
+const MainTable: React.FC<MainTableProps> = ({currentPageNumber,pageSize, isLoading, cryptoAssets }) => {
+
     const [sortColumn, setSortColumn] = useState<string>('');
     const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrderEnum.ASC);
-
-    const pageSize = 15;
-
-    const { totalPagesCount, isLoading, cryptoAssets } = useGetPaginationAssets(currentPageNumber, pageSize, searchInput)
-    const pageNumbers = Array.from({ length: totalPagesCount }, (item, i) => i + 1);
-
-    const handlePageChange = (pageNumber: number) => {
-        setCurrentPageNumber(pageNumber);
-    };
-
-    const handleSearch = (searchInput: string) => {
-        setSearchInput(searchInput);
-    };
 
     const handleSort = (column: string, order: SortOrder) => {
         setSortColumn(column);
@@ -37,8 +27,8 @@ const MainTable = () => {
     return (
         <>
             {isLoading ? <Loader message="Loading..." /> :
-                 <div className={TableStyles.wrapper}>
-                    <SearchBar onSearchInput={handleSearch} />
+                <div className={TableStyles.wrapper}>
+                 
                     <table className={TableStyles.main_table}>
                         <thead>
                             <tr>
@@ -84,14 +74,8 @@ const MainTable = () => {
                             ))}
                         </tbody>
                     </table>
-                    <Pagination
-                        currentPage={currentPageNumber}
-                        totalPages={totalPagesCount}
-                        pageNumbers={pageNumbers}
-                        onPageChange={handlePageChange}
-                    />
-                    </div>
-                }
+                </div>
+            }
         </>
     );
 };
