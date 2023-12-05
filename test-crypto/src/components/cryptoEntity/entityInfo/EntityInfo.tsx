@@ -1,16 +1,18 @@
 import { useGetEntityInfo } from "../../../hooks/coinsHooks";
 import style from "../../../pages/EntityDetailsPage/EntityDetailsPage.module.scss";
 import { customColumnNames } from "../../../pages/MainTablePage/ColumnNames";
+import { ICurrency } from "../../../types/ApiTypes";
 import { formatPriceWithSuffix, roundingNumericValues } from "../../../utils/formatNumericValue";
 import AddButton from "../../backpack/addButton/AddButton";
 import Loader from "../../sharedComponents/loader/Loader";
 
 interface IEntityInfoProps {
-    id: string;
+    id: string,
+    entityDetails:ICurrency, 
+    isLoading:boolean
 }
 
-const EntityInfo: React.FC<IEntityInfoProps> = ({ id }) => {
-    const { entityDetails, isLoading } = useGetEntityInfo()
+const EntityInfo: React.FC<IEntityInfoProps> = ({ id,isLoading,entityDetails }) => {
 
     return (<>
         {isLoading ? (
