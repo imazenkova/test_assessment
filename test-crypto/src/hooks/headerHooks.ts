@@ -3,11 +3,8 @@ import { getCoinsByIds } from "../api/Api";
 import BackpackCoinsContext from "../context/backpackCoinContext";
 import { ICurrency } from "../types/ApiTypes";
 import { countCoins, getTopCoins } from "../utils/coinsUtils";
+import { IChanges } from "../components/header/differences/Differences";
 
-interface IChanges {
-    percent: string;
-    difference: string;
-}
 
 export function useGetChanges() {
     const context = useContext(BackpackCoinsContext);

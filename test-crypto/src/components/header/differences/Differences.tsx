@@ -1,7 +1,15 @@
-import { useGetChanges } from '../../../hooks/headerHooks';
-import styles from "./Differences.module.scss"
-const DifferencePercent = () => {
-  const { difference, percent } = useGetChanges();
+import styles from "./Differences.module.scss";
+
+export interface IChanges {
+  percent: string;
+  difference: string;
+}
+
+interface DifferenceProps {
+  changes: IChanges
+}
+const DifferencePercent: React.FC<DifferenceProps> = ({changes}) => {
+  const { difference, percent } = changes;
 
   return (
     <div className={styles.diffrence}>
