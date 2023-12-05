@@ -13,13 +13,16 @@ export function useGetChanges() {
     const context = useContext(BackpackCoinsContext);
     const { totalCost, getBackpack } = context!;
 
-    const [costChange, setCostChange] = useState<IChanges>({
+    const initialCost: IChanges = {
         percent: "+0.00$",
         difference: "+0.00%"
-    });
+    }
+
+    const [costChange, setCostChange] = useState<IChanges>(initialCost);
 
     async function setDiffrence() {
         try {
+            debugger
             const oldTotalCost = localStorage.getItem("totalCost");
             const currentBackpack = getBackpack()
             const ids = currentBackpack.map((item) => item.coinId)
@@ -45,6 +48,8 @@ export function useGetChanges() {
                         difference: differenceString
                     });
                 }
+            } else {
+                setCostChange(initialCost)
             }
         } catch (error) {
             console.log("getFreshCoins", error)
