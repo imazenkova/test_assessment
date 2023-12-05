@@ -12,9 +12,8 @@ import {
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { useChart } from '../../../hooks/chartHooks';
-import { useGetHistory } from '../../../hooks/coinsHooks';
 import { customColumnNames } from '../../../pages/MainTablePage/ColumnNames';
-import { Interval } from '../../../types/ApiTypes';
+import { IHistory, Interval } from '../../../types/ApiTypes';
 import Loader from '../../sharedComponents/loader/Loader';
 import style from "./PriceChart.module.scss";
 
@@ -30,13 +29,13 @@ ChartJS.register(
 );
 
 interface IPriceChartProps {
-  interval: Interval;
-  id: string;
+  interval: Interval,
+  historyData:IHistory[],
+  isLoading:boolean,
+  apiError:boolean
 }
 
-const PriceChart: React.FC<IPriceChartProps> = ({ interval, id }) => {
-
-  const { isLoading, historyData, apiError } = useGetHistory(id, interval)
+const PriceChart: React.FC<IPriceChartProps> = ({ interval,historyData,isLoading,apiError }) => {
   const { labels, prices } = useChart(historyData, interval)
 
   const chartData = {

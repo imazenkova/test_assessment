@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import BackpackCoinsContext, { ICoin } from '../../../context/backpackCoinContext';
-import { useGetCoinInBackpack } from '../../../hooks/backpackHooks';
 import { removeCoin } from '../../../utils/coinsUtils';
 import { roundingNumericValues } from '../../../utils/formatNumericValue';
 import Modal from '../../sharedComponents/modal/Modal';

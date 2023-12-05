@@ -1,4 +1,3 @@
-import { useGetEntityInfo } from "../../../hooks/coinsHooks";
 import style from "../../../pages/EntityDetailsPage/EntityDetailsPage.module.scss";
 import { customColumnNames } from "../../../pages/MainTablePage/ColumnNames";
 import { ICurrency } from "../../../types/ApiTypes";

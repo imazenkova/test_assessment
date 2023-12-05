@@ -43,7 +43,7 @@ export function useGetPaginationAssets(currentPageNumber: number, pageSize: numb
 }
 
 export function useGetHistory(id: string, selectedInterval: Interval) {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingHistory, setIsLoading] = useState(true);
     const [historyData, setHistoryData] = useState<IHistory[]>([]);
     const [apiError, setApiError] = useState(false);
 
@@ -62,7 +62,7 @@ export function useGetHistory(id: string, selectedInterval: Interval) {
         getCoinHistory();
     }, [id, selectedInterval]);
 
-    return { isLoading, historyData, apiError }
+    return { isLoadingHistory, historyData, apiError }
 }
 
 export function useGetEntityInfo() {
