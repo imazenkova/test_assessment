@@ -8,13 +8,13 @@ import TableRow from '../tableRow/TableRow';
 import TableStyles from './MainTable.module.scss';
 
 interface MainTableProps {
-    isLoading:boolean, 
-    cryptoAssets:ICurrency[]
-    currentPageNumber:number,
-    pageSize:number
+    isLoading: boolean,
+    cryptoAssets: ICurrency[]
+    currentPageNumber: number,
+    pageSize: number
 }
 
-const MainTable: React.FC<MainTableProps> = ({currentPageNumber,pageSize, isLoading, cryptoAssets }) => {
+const MainTable: React.FC<MainTableProps> = ({ currentPageNumber, pageSize, isLoading, cryptoAssets }) => {
 
     const [sortColumn, setSortColumn] = useState<string>('');
     const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrderEnum.ASC);
@@ -28,8 +28,7 @@ const MainTable: React.FC<MainTableProps> = ({currentPageNumber,pageSize, isLoad
         <>
             {isLoading ? <Loader message="Loading..." /> :
                 <div className={TableStyles.wrapper}>
-                 
-                    <table className={TableStyles.main_table}>
+                    <table  >
                         <thead>
                             <tr>
                                 <th scope='col'>#</th>
