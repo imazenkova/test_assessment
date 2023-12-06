@@ -3,6 +3,7 @@ import MainTable from '../../components/cryptoTable/mainTable/MainTable';
 import { useGetPaginationAssets } from '../../hooks/coinsHooks';
 import Pagination from '../../components/sharedComponents/pagination/Pagination';
 import SearchBar from '../../components/sharedComponents/searchBar/SearchBar';
+import styles from "./MainTablePage.module.scss"
 
 const MainTablePage: React.FC = () => {
   const [currentPageNumber, setCurrentPageNumber] = useState<number>(1);
@@ -21,7 +22,7 @@ const MainTablePage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <SearchBar onSearchInput={handleSearch} />
       <MainTable currentPageNumber={currentPageNumber} pageSize={pageSize} isLoading={isLoading} cryptoAssets={cryptoAssets} />
       <Pagination
