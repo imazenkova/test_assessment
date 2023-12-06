@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
 
-  button {
+  .button_add {
     display: block;
     width: 40%;
     padding: 0.5em;
@@ -28,24 +28,25 @@
   }
 }
 
-.info_container{
+.info_container {
   text-align: left;
 
-  h2{
+  .header {
     text-align: center;
     margin-bottom: 1em;
   }
+
   .empty_input {
     color: red;
   }
-  
+
   .quantity_container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-  
-    input {
+
+    .input_quantity {
       width: 40%;
       padding: 10px;
       margin-top: 10px;
@@ -53,7 +54,7 @@
       border-radius: 3px;
     }
   }
-  
+
 
 }
 

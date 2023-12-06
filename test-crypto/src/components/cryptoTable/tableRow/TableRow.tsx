@@ -4,6 +4,7 @@ import { ICurrency } from '../../../types/ApiTypes';
 import { formatPriceWithSuffix, roundingNumericValues } from '../../../utils/formatNumericValue';
 import { RoutesPath } from '../../../types/RoutesTypes';
 import AddButton from '../../backpack/addButton/AddButton';
+import styles from "../mainTable/MainTable.module.scss"
 
 interface TableRowProps {
     crypto: ICurrency;
@@ -25,7 +26,7 @@ const TableRow: React.FC<TableRowProps> = ({ crypto, index, currentPage, pageSiz
         <tr key={crypto.id} >
             <td onClick={() => handleClick(crypto.id)}>{(currentPage - 1) * pageSize + index + 1}</td>
             <td>
-                <img src={imageUrl} alt="" />
+                <img className={styles.coin_symbol_img} src={imageUrl} alt="" />
             </td>
             <td onClick={() => handleClick(crypto.id)} >{crypto.symbol}</td>
             <td onClick={() => handleClick(crypto.id)} >{crypto.name}</td>

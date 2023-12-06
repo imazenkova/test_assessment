@@ -44,7 +44,7 @@ const RemoveCoinModal: React.FC<RemoveCoinModalProps> = ({
                                     <div>{`Cost: ${roundingNumericValues(coin.cost)}`}</div>
                                     <div>{`Total: ${roundingNumericValues(coin.quantity * coin.cost)}`}</div>
                                 </div>
-                                <button onClick={() => handleRemove(coin.coinId)}>Remove</button>
+                                <button className={styles.remove_button} onClick={() => handleRemove(coin.coinId)}>Remove</button>
                             </li>
                         ))}
                     </ul>

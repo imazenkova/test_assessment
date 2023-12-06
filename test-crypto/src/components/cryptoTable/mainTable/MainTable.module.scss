@@ -5,4 +5,17 @@
   display: flex;
   align-content: center;
   justify-content: center;
+
+
+  .coin_symbol_img {
+    width: 25px;
+    height: 25px;
+    margin-left: 4rem;
+  }
+
+  @media (max-width: 767px) {
+    .coin_symbol_img {
+      margin-left: 0;
+    }
+  }
 }

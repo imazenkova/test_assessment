@@ -52,7 +52,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
                 </div>
             ) : (
                 <div className={styles.info_container}>
-                    <h2>Add to Backpack</h2>
+                    <h2 className={styles.header}>Add to Backpack</h2>
                     <p>Coin: {name}</p>
                     <p>Cost: {roundingNumericValues(cost)}</p>
                     <div className={styles.quantity_container}>
@@ -61,6 +61,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
                             min="1"
                             max="1000000"
                             value={quantity}
+                            className={styles.input_quantity}
                             onChange={(e) => {
                                 setQuantity(parseInt(e.target.value));
                             }}
@@ -72,7 +73,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
                         </p>
                     )}
                     <div className={styles.button_add_container}>
-                        <button onClick={handleAdd}>Add</button>
+                        <button className={styles.button_add} onClick={handleAdd}>Add</button>
                     </div>
                 </div>
             )}

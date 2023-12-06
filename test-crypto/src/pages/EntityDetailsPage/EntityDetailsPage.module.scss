@@ -39,7 +39,7 @@
   }
 }
 
-img {
+.coin_symbol_img {
   width: 25px;
   height: 25px;
   margin-left: 4rem;
@@ -127,13 +127,14 @@ img {
   .container_info {
     border-right: none;
   }
+
   .info_block {
     flex: none;
     border-right: none;
     margin-right: 0;
   }
 
-  img {
+  .coin_symbol_img {
     margin-left: 0;
   }
 
@@ -155,8 +156,6 @@ img {
   .schedule_block {
     flex: none;
   }
-
-
 }
 
 @media (min-height: 1025px) {

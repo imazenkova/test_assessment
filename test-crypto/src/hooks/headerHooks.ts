@@ -19,7 +19,6 @@ export function useGetChanges() {
 
     async function setDiffrence() {
         try {
-            debugger
             const oldTotalCost = localStorage.getItem("totalCost");
             const currentBackpack = getBackpack()
             const ids = currentBackpack.map((item) => item.coinId)

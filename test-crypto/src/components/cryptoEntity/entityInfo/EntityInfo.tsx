@@ -7,11 +7,11 @@ import Loader from "../../sharedComponents/loader/Loader";
 
 interface IEntityInfoProps {
     id: string,
-    entityDetails:ICurrency, 
-    isLoading:boolean
+    entityDetails: ICurrency,
+    isLoading: boolean
 }
 
-const EntityInfo: React.FC<IEntityInfoProps> = ({ id,isLoading,entityDetails }) => {
+const EntityInfo: React.FC<IEntityInfoProps> = ({ id, isLoading, entityDetails }) => {
 
     return (<>
         {isLoading ? (
@@ -21,8 +21,8 @@ const EntityInfo: React.FC<IEntityInfoProps> = ({ id,isLoading,entityDetails }) 
                     <div className={style.container_info}>
                         <AddButton name={entityDetails.name} coinId={id!} cost={parseFloat(entityDetails.priceUsd)} />
                         <div className={style.title_info}>
-                            <div className={style.img}>
-                                <img src={`https://assets.coincap.io/assets/icons/${entityDetails.symbol.toLowerCase()}@2x.png`} alt="" />
+                            <div >
+                                <img className={style.coin_symbol_img} src={`https://assets.coincap.io/assets/icons/${entityDetails.symbol.toLowerCase()}@2x.png`} alt="" />
                             </div>
                             <div className={style.crypto_symbol}>{entityDetails.symbol}</div>
                             <div className={style.name}>{entityDetails.name}</div>
