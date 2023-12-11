@@ -27,16 +27,12 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
     const [showSuccNotification, setShowSuccNotification] = useState(false);
 
     const handleAdd = () => {
-        try {
-            if (!quantity || quantity < 0 || quantity > 10001) {
-                return setShowEmptyInput(true);
-            }
-            if (!setOneCoinToBackpack) return;
-            setOneCoinToBackpack(coinId, quantity, cost);
-            setShowSuccNotification(true);
-        } catch (error) {
-            console.log("UpdateCoinQuantity Error: ", error);
+        if (!quantity || quantity < 0 || quantity > 10001) {
+            return setShowEmptyInput(true);
         }
+        if (!setOneCoinToBackpack) return;
+        setOneCoinToBackpack(coinId, quantity, cost);
+        setShowSuccNotification(true);
     };
 
     const handleClose = () => {

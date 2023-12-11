@@ -18,40 +18,35 @@ export function useGetChanges() {
     const [costChange, setCostChange] = useState<IChanges>(initialCost);
 
     async function setDiffrence() {
-        try {
-            const oldTotalCost = localStorage.getItem("totalCost");
-            if (!getBackpack) return;
-            const currentBackpack = getBackpack()
-            const ids = currentBackpack.map((item) => item.coinId)
-            const idsString = ids.join(",");
+        const oldTotalCost = localStorage.getItem("totalCost");
+        if (!getBackpack) return;
+        const currentBackpack = getBackpack()
+        const ids = currentBackpack.map((item) => item.coinId)
+        const idsString = ids.join(",");
 
-            if (idsString) {
-                const freshCoins = await getCoinsByIds(idsString);
-                const newBackpack = currentBackpack.map((currentCoin) => {
-                    const freshCoin = freshCoins.find((newCoin) => newCoin.id === currentCoin.coinId);
-                    const cost = freshCoin ? parseFloat(freshCoin.priceUsd) : 0;
-                    return { ...currentCoin, cost };
+        if (idsString) {
+            const freshCoins = await getCoinsByIds(idsString);
+            const newBackpack = currentBackpack.map((currentCoin) => {
+                const freshCoin = freshCoins.find((newCoin) => newCoin.id === currentCoin.coinId);
+                const cost = freshCoin ? parseFloat(freshCoin.priceUsd) : 0;
+                return { ...currentCoin, cost };
+            });
+
+            const newTotalCost = await countCoins(newBackpack)
+            if (oldTotalCost !== null && parseFloat(oldTotalCost)) {
+                const percentChange = ((newTotalCost - parseFloat(oldTotalCost)) / parseFloat(oldTotalCost)) * 100;
+                const difference = newTotalCost - parseFloat(oldTotalCost);
+
+                const percentString = `${(percentChange >= 0 ? '+' : '')}${percentChange.toFixed(2)}%`;
+                const differenceString = `${(difference >= 0 ? '+' : '')}${difference.toFixed(2)}$`;
+
+                setCostChange({
+                    percent: percentString,
+                    difference: differenceString
                 });
-
-                const newTotalCost = await countCoins(newBackpack)
-                if (oldTotalCost !== null && parseFloat(oldTotalCost)) {
-                    const percentChange = ((newTotalCost - parseFloat(oldTotalCost)) / parseFloat(oldTotalCost)) * 100;
-                    const difference = newTotalCost - parseFloat(oldTotalCost);
-
-                    const percentString = `${(percentChange >= 0 ? '+' : '')}${percentChange.toFixed(2)}%`;
-                    const differenceString = `${(difference >= 0 ? '+' : '')}${difference.toFixed(2)}$`;
-
-                    setCostChange({
-                        percent: percentString,
-                        difference: differenceString
-                    });
-                }
-            } else {
-                setCostChange(initialCost)
             }
-        } catch (error) {
-            console.log("getFreshCoins", error)
-            throw Error;
+        } else {
+            setCostChange(initialCost)
         }
     }
 
@@ -70,12 +65,8 @@ export function useGetChanges() {
 export function useTopCoins(topLimit: number) {
     const [topCurrencyData, setTopCurrencyData] = useState<ICurrency[]>([]);
     const getTop = async () => {
-        try {
-            const topCoins = await getTopCoins(topLimit);
-            setTopCurrencyData(topCoins);
-        } catch (error) {
-            console.log(error);
-        }
+        const topCoins = await getTopCoins(topLimit);
+        setTopCurrencyData(topCoins);
     };
 
     useEffect(() => {

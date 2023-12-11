@@ -6,7 +6,7 @@ import Modal from '../../sharedComponents/modal/Modal';
 import styles from './RemoveCoinModal.module.scss';
 
 interface RemoveCoinModalProps {
-    backpackCoins:ICoin[];
+    backpackCoins: ICoin[];
     isOpen: boolean;
     onClose: () => void;
 }
@@ -18,18 +18,14 @@ const RemoveCoinModal: React.FC<RemoveCoinModalProps> = ({
 }) => {
     const context = useContext(BackpackCoinsContext);
     const { updateFullBackpack } = context || {};
-  
-    
+
+
     const handleRemove = async (coinId: string) => {
-        try {
-            const newBackpack = await removeCoin(coinId, backpackCoins)
-            if(!updateFullBackpack) return;
-            updateFullBackpack(newBackpack)
-            if (newBackpack.length===0){
-                onClose()
-            }
-        } catch (error) {
-            console.log("handleRemove Error", error)
+        const newBackpack = await removeCoin(coinId, backpackCoins)
+        if (!updateFullBackpack) return;
+        updateFullBackpack(newBackpack)
+        if (newBackpack.length === 0) {
+            onClose()
         }
     };
 
