@@ -17,9 +17,9 @@ const EntityInfo: React.FC<IEntityInfoProps> = ({ id, isLoading, entityDetails }
         {isLoading ? (
             <Loader message="" />) : (
             <>
-                {entityDetails && (
+                {entityDetails && id &&(
                     <div className={style.container_info}>
-                        <AddButton name={entityDetails.name} coinId={id!} cost={parseFloat(entityDetails.priceUsd)} />
+                        <AddButton name={entityDetails.name} coinId={id} cost={parseFloat(entityDetails.priceUsd)} />
                         <div className={style.title_info}>
                             <div >
                                 <img className={style.coin_symbol_img} src={`https://assets.coincap.io/assets/icons/${entityDetails.symbol.toLowerCase()}@2x.png`} alt="" />

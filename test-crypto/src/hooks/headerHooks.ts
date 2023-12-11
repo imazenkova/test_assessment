@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { getCoinsByIds } from "../api/Api";
+import { IChanges } from "../components/header/differences/Differences";
 import BackpackCoinsContext from "../context/backpackCoinContext";
 import { ICurrency } from "../types/ApiTypes";
 import { countCoins, getTopCoins } from "../utils/coinsUtils";
-import { IChanges } from "../components/header/differences/Differences";
 
 
 export function useGetChanges() {
     const context = useContext(BackpackCoinsContext);
-    const { totalCost, getBackpack } = context!;
+    const { totalCost, getBackpack } = context || {};
 
     const initialCost: IChanges = {
         percent: "+0.00$",
@@ -20,16 +20,18 @@ export function useGetChanges() {
     async function setDiffrence() {
         try {
             const oldTotalCost = localStorage.getItem("totalCost");
+            if (!getBackpack) return;
             const currentBackpack = getBackpack()
             const ids = currentBackpack.map((item) => item.coinId)
-            var idsString = ids.join(",");
+            const idsString = ids.join(",");
 
             if (idsString) {
                 const freshCoins = await getCoinsByIds(idsString);
                 const newBackpack = currentBackpack.map((currentCoin) => {
-                    const freshCoin = freshCoins.find((newCoin) => newCoin.id === currentCoin.coinId)
-                    return { ...currentCoin, cost: parseFloat(freshCoin!.priceUsd) }
-                })
+                    const freshCoin = freshCoins.find((newCoin) => newCoin.id === currentCoin.coinId);
+                    const cost = freshCoin ? parseFloat(freshCoin.priceUsd) : 0;
+                    return { ...currentCoin, cost };
+                });
 
                 const newTotalCost = await countCoins(newBackpack)
                 if (oldTotalCost !== null && parseFloat(oldTotalCost)) {

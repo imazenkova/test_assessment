@@ -10,8 +10,8 @@ const EntityDetailsPage = () => {
     const [selectedInterval, setSelectedInterval] = useState<Interval>("h1");
     const coinId = useGetCoinById()
     const { entityDetails, isLoading } = useGetEntityInfo()
-    const { isLoadingHistory, historyData, apiError } = useGetHistory(coinId!, selectedInterval)
-
+    const { isLoadingHistory, historyData, apiError } = useGetHistory(coinId !== null && coinId !== undefined ? coinId : '', selectedInterval);
+    
     const handleIntervalChange = (interval: Interval) =>
         setSelectedInterval(interval);
 
@@ -19,9 +19,9 @@ const EntityDetailsPage = () => {
         <>
             <div>
                 <div className={style.wrapper}>
-                    {coinId && (<div className={style.container}>
+                    {coinId && entityDetails && (<div className={style.container}>
                         <div className={style.info_block}>
-                            <EntityInfo isLoading={isLoading} entityDetails={entityDetails!} id={coinId} />
+                            <EntityInfo isLoading={isLoading} entityDetails={entityDetails} id={coinId} />
                         </div>
                         <div className={style.schedule_block}>
                             <IntervalButtons onIntervalChange={handleIntervalChange} />

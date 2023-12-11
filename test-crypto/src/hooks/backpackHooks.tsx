@@ -4,7 +4,7 @@ import BackpackCoinsContext, { ICoin } from "../context/backpackCoinContext";
 export function useBackpackCost() {
     const [backpackCost, setBackpacklCost] = useState<number>(0);
     const context = useContext(BackpackCoinsContext);
-    const { totalCost } = context!;
+    const { totalCost } = context || {};
 
     useEffect(() => {
         const backpackCost = localStorage.getItem("totalCost")
@@ -21,12 +21,13 @@ export function useBackpackCost() {
 export function useGetCoinInBackpack() {
     const [backpackCoins, setBackpackCoins] = useState<ICoin[]>([]);
     const context = useContext(BackpackCoinsContext);
-    const { totalCost, getBackpack } = context!;
+    const { totalCost, getBackpack } = context || {};
 
     useEffect(() => {
+        if (!getBackpack) return;
         const backpackCoins = getBackpack();
         setBackpackCoins(backpackCoins);
-    }, [totalCost,getBackpack]);
-    
+    }, [totalCost, getBackpack]);
+
     return backpackCoins
 }

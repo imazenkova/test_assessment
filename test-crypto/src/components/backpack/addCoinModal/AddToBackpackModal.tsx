@@ -20,7 +20,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
     closeModal,
 }) => {
     const context = useContext(BackpackCoinsContext);
-    const { setOneCoinToBackpack } = context!;
+    const { setOneCoinToBackpack } = context || {};
 
     const [quantity, setQuantity] = useState<number>(1);
     const [showEmptyInput, setShowEmptyInput] = useState(false);
@@ -31,6 +31,7 @@ const AddToBackpack: React.FC<AddToBackpackProps> = ({
             if (!quantity || quantity < 0 || quantity > 10001) {
                 return setShowEmptyInput(true);
             }
+            if (!setOneCoinToBackpack) return;
             setOneCoinToBackpack(coinId, quantity, cost);
             setShowSuccNotification(true);
         } catch (error) {

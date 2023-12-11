@@ -17,11 +17,13 @@ const RemoveCoinModal: React.FC<RemoveCoinModalProps> = ({
     onClose,
 }) => {
     const context = useContext(BackpackCoinsContext);
-    const { updateFullBackpack } = context!;
+    const { updateFullBackpack } = context || {};
+  
     
     const handleRemove = async (coinId: string) => {
         try {
             const newBackpack = await removeCoin(coinId, backpackCoins)
+            if(!updateFullBackpack) return;
             updateFullBackpack(newBackpack)
             if (newBackpack.length===0){
                 onClose()
