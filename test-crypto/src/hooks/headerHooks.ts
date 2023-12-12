@@ -1,23 +1,22 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { getCoinsByIds } from "../api/Api";
 import { IChanges } from "../components/header/differences/Differences";
 import BackpackCoinsContext from "../context/backpackCoinContext";
 import { ICurrency } from "../types/ApiTypes";
 import { countCoins, getTopCoins } from "../utils/coinsUtils";
 
-
 export function useGetChanges() {
     const context = useContext(BackpackCoinsContext);
     const { totalCost, getBackpack } = context || {};
-
-    const initialCost: IChanges = {
-        percent: "+0.00$",
-        difference: "+0.00%"
-    }
-
+      // eslint-disable-next-line
+    const initialCost =  {
+            percent: "+0.00$",
+            difference: "+0.00%"
+        };
+   
     const [costChange, setCostChange] = useState<IChanges>(initialCost);
 
-    async function setDiffrence() {
+    const setDiffrence = useCallback(async () => {
         const oldTotalCost = localStorage.getItem("totalCost");
         if (!getBackpack) return;
         const currentBackpack = getBackpack()
@@ -48,15 +47,16 @@ export function useGetChanges() {
         } else {
             setCostChange(initialCost)
         }
-    }
+    }, [getBackpack, setCostChange, initialCost]);
 
     useEffect(() => {
         setDiffrence()
-    }, [totalCost]);
+    }, [totalCost, setDiffrence]);
 
 
     useEffect(() => {
         setDiffrence()
+        // eslint-disable-next-line
     }, []);
 
     return costChange;
@@ -64,14 +64,14 @@ export function useGetChanges() {
 
 export function useTopCoins(topLimit: number) {
     const [topCurrencyData, setTopCurrencyData] = useState<ICurrency[]>([]);
-    const getTop = async () => {
+    const getTop = useCallback(async () => {
         const topCoins = await getTopCoins(topLimit);
         setTopCurrencyData(topCoins);
-    };
+    }, [topLimit]);
 
     useEffect(() => {
         getTop();
-    }, [topLimit]);
+    }, [topLimit, getTop]);
 
     return topCurrencyData;
 };
