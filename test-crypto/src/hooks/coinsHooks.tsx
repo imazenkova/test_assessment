@@ -5,8 +5,6 @@ import { fetchHistoryData } from "../pages/EntityDetailsPage/api";
 import { ICurrency, IHistory, Interval } from "../types/ApiTypes";
 import { RoutesPath } from "../types/RoutesTypes";
 
-
-
 export function useGetPaginationAssets(currentPageNumber: number, pageSize: number, searchInput: string) {
     const [isLoading, setIsLoading] = useState(true);
     const [cryptoAssets, setCryptoAssets] = useState<ICurrency[]>([]);
